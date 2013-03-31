@@ -99,6 +99,7 @@ header#mainHeader #mainMenu {
 #body {
 	width: 100%;
 	min-width: 980px;
+	min-height: 1000px;
 	clear: both;
 	display: inline;
 	padding-bottom: 80px;
