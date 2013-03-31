@@ -1,0 +1,192 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td
+{
+	margin:0;
+	padding:0;
+
+}
+
+.f1 {
+	COLOR: #c90809;
+}
+
+.shop {
+	COLOR: #c60c0d;
+	FONT-SIZE: 12px;
+}
+
+header#mainHeader {
+	color: white;
+	position: relative;
+}
+
+header#mainHeader #headerTop {
+	background: url("../images/bg_nav.png") repeat-x 0 0;
+/* background-color: rgba(0,0,0,0.75);
+-webkit-transform-style: preserve-3d;
+-moz-transform-style: preserve-3d;
+-ms-transform-style: preserve-3d;
+-o-transform-style: preserve-3d;
+transform-style: preserve-3d; 
+padding-bottom: .25em;
+*/
+left: 0;
+text-align: right;
+position: fixed;
+top: 0;
+width: 100%;
+height: 39px;
+z-index: 1000;
+-webkit-box-shadow: 0px 1px 3px 0px #000;
+box-shadow: 0px 1px 3px 0px #000;
+/*	width: 100%;
+	min-width: 1000px;
+	height: 120px;
+	background: #80B719 no-repeat fixed center;
+	-moz-box-shadow: 0px 0px 10px #888;
+	-webkit-box-shadow: 0px 0px 10px #888;
+	box-shadow: 0px 0px 10px #888;
+	float: left;
+	clear: both;
+	display: inline; */
+}
+
+header#mainHeader #mainMenu {
+	padding-top: .25em;
+	margin: 0 auto;
+	width: 1000px;
+	max-width: 100em;
+	padding: 0 6.5625%;
+
+/*	font-size: 15px;
+	width: 1000px;
+	height: 100px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border:5px solid red;
+	margin: 0 auto;
+	text-align: left; */
+}
+
+#branding {
+	float: left;
+}
+
+#branding .logo {
+	float: left;
+}
+
+#branding .logo a {
+	display: block;
+	background: url(../logo.png);
+	width: 200px;
+	height: 35px; 
+	text-indent: -9000px;
+	margin: 0px 0;
+}
+
+/*
+#branding .tagline {
+	background: white; /* url(); 
+	width: 220px;
+	height: 40px;
+	text-indent: -9000px;
+	margin: 10px 0 10px 10px;
+	float: left;
+} 
+*/
+
+#body {
+	width: 100%;
+	min-width: 980px;
+	clear: both;
+	display: inline;
+	padding-bottom: 80px;
+	border-bottom: 15px solid black;
+	position: absolute;
+	/*background: url("../images/legumes.jpg") no-repeat 0 40px fixed;*/
+	background: black;
+}
+
+.wrap {
+	width: 960px;
+	margin: 0 auto;
+	text-align: left;
+	background: white;
+}
+/*
+.legumes_bg {
+	width: 100%;
+	min-height: 700px;
+	background: url("../images/legumes.jpg");
+} */
+
+.legumes_box, .fruits_box, .meet_box {
+	height:300px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ccc;
+	background: white;
+	position: relative;
+	margin-top:100px;
+}
+
+.category {
+	width: 958px;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.category_title {
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+}
+
+.suggest {
+	width: 200px;
+	height: 240px;
+	FLOAT: left;	
+}
+
+.goods_list {
+	padding-bottom: 5px;
+	width: 570px;
+	float: left;
+}
+
+.goods_item {
+	width: 140px;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	margin-top: 7px;
+}
+
+.goods_item img {
+	display: inline-box;
+	width: 130px;
+	height: 130px;
+}
+
+.goods_item .name {
+	height: 35px;
+	DISPLAY: block;
+	OVERFLOW: hidden;
+}
+
+.goods_item p {
+	TEXT-ALIGN: center;
+	COLOR: #666;
+	FONT-SIZE: 12px;
+	overflow: hidden;
+}
+
+.hot_goods {
+	width: 180px;
+	height:240px;
+	float: right;
+	border: 1px solid #CCCCCC;
+}
