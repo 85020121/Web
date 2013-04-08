@@ -6,6 +6,9 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 <title>放心菜</title>
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/default.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="protected/css/registre_form.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="protected/css/login.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="protected/css/registre.css"/>
 <meta name="description" content="放心菜，送到家"/>
 <meta name="keywords" content="有机蔬菜，放心菜，荆门送菜到家，买菜网"/>
 <link rel="alternate" type="application/rss+xml" title="" href=""/>
@@ -14,6 +17,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="protected/js/jquery.parallaxscroll.js" type="text/javascript"></script>
+<script type="text/javascript" src="protected/js/login.js"></script>
 <!--
 <script type="text/javascript">
 
@@ -68,22 +72,10 @@ if(!(include 'protected/php/productsManager.php'))
 {
 	echo 'ERROR : include protected/php/productsManager.php';
 }
+
+include 'protected/pages/header.inc.php';
 ?>
 	
-	<header id="mainHeader">
-		<div id="headerTop">
-			<div id="mainMenu">
-				<div id="branding">
-					<div class="logo">
-						<strong>
-							<a href="/" title="首页"></a>
-						</strong>
-					</div> <!-- end of logo -->
-				<!--	<div class="tagline">健康生活</div> -->
-				</div> <!-- end of branding -->
-			</div> <!-- end of mainMenu -->
-		</div> <!-- end of headerTop -->
-	</header> <!-- end of wrap-->
 
 <?php
 try

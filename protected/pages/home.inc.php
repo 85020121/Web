@@ -2,7 +2,7 @@
 				<div class="category">
 					<div class="category_title">
 						<h6 style="margin-top:5px;">
-							<a href="index.php?p=registre">蔬菜</a>
+							<a href="/">蔬菜</a>
 						</h6>						
 					</div>
 				</div> <!-- end of category -->
@@ -148,7 +148,7 @@ for($i=0; $i<4; $i++){
 				<div class="category">
 					<div class="category_title">
 						<h6 style="margin-top:5px;">
-							<a href=/>肉类</a>
+							<a href="/">肉类</a>
 						</h6>						
 					</div>
 				</div> <!-- end of category -->

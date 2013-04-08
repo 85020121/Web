@@ -5,6 +5,10 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 
 }
 
+a {
+	text-decoration:none;
+}
+
 .f1 {
 	COLOR: #c90809;
 }
@@ -51,11 +55,11 @@ box-shadow: 0px 1px 3px 0px #000;
 }
 
 header#mainHeader #mainMenu {
-	padding-top: .25em;
 	margin: 0 auto;
-	width: 1000px;
-	max-width: 100em;
-	padding: 0 6.5625%;
+	width: 960px;
+	height: 39px;
+/*	max-width: 100em; 
+	padding: 0 6.5625%;*/
 
 /*	font-size: 15px;
 	width: 1000px;
@@ -99,21 +103,21 @@ header#mainHeader #mainMenu {
 #body {
 	width: 100%;
 	min-width: 980px;
-	min-height: 1000px;
+	min-height: 1000px; 
 	clear: both;
 	display: inline;
 	padding-bottom: 80px;
-	border-bottom: 15px solid black;
 	position: absolute;
-	/*background: url("../images/legumes.jpg") no-repeat 0 40px fixed;*/
-	background: black;
+	background: url("/protected/images/sky.jpg") no-repeat fixed; /*no-repeat 0 40px fixed;*/
+/*	top: 40px; */
 }
 
 .wrap {
 	width: 960px;
 	margin: 0 auto;
 	text-align: left;
-	background: white;
+	margin-top: 60px;
+/*	background: white; */
 }
 /*
 .legumes_bg {
