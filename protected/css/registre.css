@@ -1,7 +1,7 @@
 .registre p {
     padding: 7px 0 7px 0;
     font-weight: 500;
-    font-size: 10pt;
+    font-size: 15pt;
 }
 a {
     color: #656565;
@@ -30,7 +30,7 @@ a:hover{
 form.register{
     width:800px;
     margin: 20px auto 0px auto;
-    height:500px;
+    height:550px;
     background-color:#fff;
     padding:5px;
     -moz-border-radius:20px;
@@ -46,6 +46,11 @@ form p{
 
 form.register fieldset {
 	border: 0;
+}
+
+form.register label
+{
+    font-size: 12px;
 }
 
 form.register fieldset.row1
@@ -221,4 +226,30 @@ p.agreement label{
 }
 
 
+
+/* ******************************* */
+.messagebox{
+	position:absolute;
+	width:100px;
+	margin-left:10px;
+	padding:3px;
+	color: green;
+}
+.messageboxok{
+	position:absolute;
+	width:auto;
+	margin-left:10px;
+	padding:3px;
+	font-weight:bold;
+	color:green;
+	
+}
+.messageboxerror{
+	position:absolute;
+	width:auto;
+	margin-left:10px;
+	padding:3px;
+	font-weight:bold;
+	color:red;
+}
 

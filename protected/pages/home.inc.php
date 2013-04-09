@@ -115,7 +115,7 @@ while ($donnees = $reponse->fetch())
 {
 //$donnees = $reponse->fetch();
 */
-$products = $manager->getFourProducts("fruit");
+$products = $productsManager->getFourProducts("fruit");
 for($i=0; $i<4; $i++){
 ?>
 				

@@ -17,7 +17,7 @@ class ProductsManager
 	
 	public function getFourProducts($category)
 	{
-		$q = $this->db->prepare('SELECT * FROM products_info WHERE category=? ORDER BY view_count DESC LIMIT 0,5');
+		$q = $this->db->prepare('SELECT * FROM products_info WHERE category=? ORDER BY view_count DESC LIMIT 0,4');
 		$q->execute(array($category));
 		$products = array();
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))

@@ -10,6 +10,12 @@
 				<!--	<div class="tagline">健康生活</div> -->
 				</div> <!-- end of branding -->
 				<div id="loginContainer">
+<?php 
+if (isset($_SESSION['id']) AND isset($_SESSION['login']))
+{
+    echo '你好 ' . $_SESSION['login'];
+} else {
+?>
 					<a href="#" id="loginButton"><span>登陆</span></a>
                 	<div id="loginBox">                
                     	<form id="loginForm">
@@ -30,6 +36,7 @@
             	    </div>
             	    <span style="margin: 0 8px;">|</span>
 					<a href="index.php?p=registre" style="color:white"><span>注册</span></a>
+<?php } ?>
 				</div> <!-- end of loginContainer -->
 
 			</div> <!-- end of mainMenu -->

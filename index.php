@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+
+// auto logout when page inactive after 10 minutes
+// set timeout period in seconds
+$inactive = 600;
+// check to see if $_SESSION['timeout'] is set
+if(isset($_SESSION['timeout']) ) {
+	$session_life = time() - $_SESSION['timeout'];
+	if($session_life > $inactive)
+        { session_destroy(); header("Location: index.php"); }
+}
+$_SESSION['timeout'] = time();
+
+
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -17,6 +34,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="protected/js/jquery.parallaxscroll.js" type="text/javascript"></script>
+<script src="protected/js/jquery.js" type="text/javascript"></script>
 <script type="text/javascript" src="protected/js/login.js"></script>
 <!--
 <script type="text/javascript">
@@ -67,13 +85,15 @@
 </head>
 
 <body>
+
 <?php 
 if(!(include 'protected/php/productsManager.php'))
 {
 	echo 'ERROR : include protected/php/productsManager.php';
 }
-
+include 'protected/php/registration.php';
 include 'protected/pages/header.inc.php';
+
 ?>
 	
 
@@ -86,7 +106,7 @@ catch (Exception $e)
 {
 	die('Erreur : ' . $e->getMessage());
 }
-$manager = new ProductsManager($db);
+$productsManager = new ProductsManager($db);
 ?>
 	
 	<div id="body">
@@ -114,9 +134,6 @@ $manager = new ProductsManager($db);
 		</div> <!-- end of wrap -->
 	</div> <!-- end of body -->
 	
-	
-<?php
-$reponse->closeCursor(); // Termine le traitement de la requête
-?>
+
 </body>
 </html>

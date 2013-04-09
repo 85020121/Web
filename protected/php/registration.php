@@ -1,0 +1,61 @@
+<?php
+include "personsManager.php";
+if(isset($_GET['jsCheck']))
+	$_GET['jsCheck']();
+
+
+function isUsernameExist()
+{
+	try
+{
+	$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
+}
+catch (Exception $e)
+{
+	die('Erreur : ' . $e->getMessage());
+}
+	$msg;
+	$user_name=$_POST['user_name'];
+	if (strlen($user_name) < 6) {
+		echo "short";
+		return;
+	}
+	  
+	$q = $db->prepare('SELECT login FROM persons WHERE login=?');
+	$q->execute(array($user_name));
+  	if ( $q->rowCount() > 0 ) {
+		echo "no";
+	} else {
+		echo 'yes';
+	}  
+}
+
+function registUser() {
+	try{
+		$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
+	} catch (Exception $e)	{
+		die('Erreur : ' . $e->getMessage());
+	}
+	$user_info = array(
+    			'login' => $_POST['username'],
+    			'password' => sha1($_POST['pass']),
+    			'email' => $_POST['email'],
+    			'name' => $_POST['name'],
+    			'streetNum' => $_POST['streetNum'],
+    	    	'street' => $_POST['street'],
+    	   		'city' => $_POST['city'],
+     			'gender' => isset($_POST['gender'])?($_POST['gender']):'',
+ 	    		'tel' => $_POST['tel'],
+    	    	'fixe' => $_POST['fixe']
+    	);
+	$manager = new PersonsManager($db);
+	$person = $manager->personMaker($user_info);
+	$succes = $manager->addPerson($person);
+	if($succes) {
+		$_SESSION['id'] = $succes;
+    	$_SESSION['login'] = $_POST['username'];	
+	}
+	return $succes;
+}
+
+?>
