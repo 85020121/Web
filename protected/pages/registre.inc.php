@@ -6,10 +6,10 @@ $(function(){
 		pass1 = $('#pass'),
 		pass2 = $('#passChecker'),
 		email = $('#email'),
-		form = $('form');
+		form = $('#registForm');
 		
 	// Empty the fields on load
-	$('form .row input').val('');
+	$('#registForm .row input').val('');
 	
 	login.blur(function()
 	{
@@ -68,7 +68,7 @@ $(function(){
 	form.on('submit',function(e){
 		
 		// Is everything entered correctly?
-		if($('form .row.success').length == $('form .row').length){
+		if($('#registForm .row.success').length == $('#registForm .row').length){
 //			$.post("/protected/php/registration.php?fn=regist", ,function(data){
 //			});
 		//	alert("Go submit.");
@@ -220,7 +220,7 @@ $(document).ready(function()
 </script>
 
 
-<form action="/index.php?p=registOk" method="post" class="register">
+<form action="/index.php?p=registOk" method="post" class="register" id="registForm">
             <h1>注册</h1>
             <fieldset class="row1">
                 <legend>帐户信息 (必填)</legend>

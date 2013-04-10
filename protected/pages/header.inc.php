@@ -1,3 +1,50 @@
+<script language="javascript">
+$(function(){
+	var loginUser = $('#loginUsername'),
+		loginPsw = $('#loginPsw'),
+		loginForm = $('#loginForm'),
+		logout = $('#logout');
+		
+/*	loginUser.blur(function(){
+		if ($(this).val().length > 0) {
+			loginUser.parent().removeClass('error').addClass('success');
+		} else {
+			loginUser.parent().removeClass('success').addClass('error');
+		}
+	});
+	
+	loginPsw.on('keydown input',function(){
+		if ($(this).val().length > 0) {
+			loginPsw.parent().removeClass('error').addClass('success');
+		} else {
+			loginPsw.parent().removeClass('success').addClass('error');
+		}
+	});  */
+	
+	loginForm.on('submit',function(e){		
+		if(loginUser.val().length > 0 && loginPsw.val().length > 0){
+		
+		} else {
+			// No. Prevent form submission
+			alert("请正确填写登陆信息。");
+			e.preventDefault();		
+		}
+	});	 
+	
+/*	logout.on('click',function(){
+		alert("in logout");
+        $.post("/protected/php/registration.php?jsCheck=logout").done(function() { alert("second success"); })
+		  .fail(function() { alert("error:"+jqXHR.error());})
+		.always(function() { alert("finished"); }); 
+
+		window.location.href="/index.php";
+	});
+	
+		*/
+});
+
+</script>
+
 	<header id="mainHeader">
 		<div id="headerTop">
 			<div id="mainMenu">
@@ -13,20 +60,26 @@
 <?php 
 if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 {
-    echo '你好 ' . $_SESSION['login'];
+	//echo '你好'. $_SESSION["login"];
+?>
+   <span style="float:left">你好 <?php $_SESSION["login"] ?></span>
+    <span style="margin: 0 8px;">|</span>
+	<a href="/index.php?p=logout" id="logout" style="color:white"><span>退出</span></a>
+    
+<?php
 } else {
 ?>
 					<a href="#" id="loginButton"><span>登陆</span></a>
                 	<div id="loginBox">                
-                    	<form id="loginForm">
+                    	<form id="loginForm" method="post" action="/index.php?p=loginCheck">
                         	<fieldset id="loginBody">
-                            	<fieldset>
-                             	   <label for="email">用户名</label>
-                                	<input type="text" name="email" id="email" />
+                            	<fieldset class="login user">
+                             	   <label for="loginUsername">用户名</label>
+                                	<input type="text" name="loginUsername" id="loginUsername" />
 	                            </fieldset>
-    	                        <fieldset>
-        	                        <label for="password">密码</label>
-            	                    <input type="password" name="password" id="password" />
+    	                        <fieldset class="login password">
+        	                        <label for="loginPsw">密码</label>
+            	                    <input type="password" name="loginPsw" id="loginPsw" />
                 	            </fieldset>
                     	        <input type="submit" id="login" value="登陆" />
                         	    <label class="checkPSW" for="checkbox"><input type="checkbox" id="checkbox" />记住登陆状态</label>

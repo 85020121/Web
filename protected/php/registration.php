@@ -1,26 +1,31 @@
 <?php
 include "personsManager.php";
-if(isset($_GET['jsCheck']))
+if(isset($_GET['jsCheck'])){
 	$_GET['jsCheck']();
+}
+
+function dbConnect() {
+	try
+	{
+		$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
+	}
+	catch (Exception $e)
+	{
+		die('Erreur : ' . $e->getMessage());
+	}
+	return $db;
+}
 
 
 function isUsernameExist()
 {
-	try
-{
-	$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
-}
-catch (Exception $e)
-{
-	die('Erreur : ' . $e->getMessage());
-}
-	$msg;
+	$db = dbConnect();
 	$user_name=$_POST['user_name'];
 	if (strlen($user_name) < 6) {
 		echo "short";
 		return;
 	}
-	  
+		  
 	$q = $db->prepare('SELECT login FROM persons WHERE login=?');
 	$q->execute(array($user_name));
   	if ( $q->rowCount() > 0 ) {
@@ -31,11 +36,7 @@ catch (Exception $e)
 }
 
 function registUser() {
-	try{
-		$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
-	} catch (Exception $e)	{
-		die('Erreur : ' . $e->getMessage());
-	}
+	$db = dbConnect();
 	$user_info = array(
     			'login' => $_POST['username'],
     			'password' => sha1($_POST['pass']),
@@ -52,10 +53,39 @@ function registUser() {
 	$person = $manager->personMaker($user_info);
 	$succes = $manager->addPerson($person);
 	if($succes) {
+		if(!session_id()) {session_start();}
 		$_SESSION['id'] = $succes;
     	$_SESSION['login'] = $_POST['username'];	
 	}
 	return $succes;
+}
+
+function login() {
+	$db = dbConnect();
+	$q = $db->prepare('SELECT id FROM persons WHERE login=:login AND password=:password');
+	$q->execute(array('login' => $_POST['loginUsername'],'password' => sha1($_POST['loginPsw'])));
+	$result = $q->fetch();
+ 
+	if (!$result) {
+	    return false;
+	} else {
+		if(!session_id()) {session_start();}
+    	$_SESSION['id'] = $result['id'];
+	    $_SESSION['login'] = $_POST['loginUsername'];
+	    return true; 
+	    //echo '<script type="text/javascript">setTimeout(function () {window.location.href="/index.php";},5000);</script>';
+	}
+	
+}
+
+
+function logout(){
+	if(isset($_SESSION['id']))
+		unset($_SESSION['id']);
+	if(isset($_SESSION['login']))
+		unset($_SESSION['login']);
+	session_unset();
+	session_destroy();
 }
 
 ?>
