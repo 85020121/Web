@@ -47,18 +47,42 @@ class PersonsManager
 		
 	}
 	
-/* 	public function getFourProducts($category)
-	{
-		$q = $this->db->prepare('SELECT * FROM products_info WHERE category=? ORDER BY view_count DESC LIMIT 0,4');
-		$q->execute(array($category));
-		$products = array();
-		while ($data = $q->fetch(PDO::FETCH_ASSOC))
-		{
-			$products[] = new Product($data);
-		}
-		return $products;
-	} */
+	public function isUsernameExist($username)
+	{  
+		$q = $this->db->prepare('SELECT login FROM persons WHERE login=?');
+		$q->execute(array($username));
+	  	return $q->rowCount();
+	}
 		
+	
+	public function login($login, $psw) {
+		$q = $this->db->prepare('SELECT id FROM persons WHERE login=:login AND password=:password');
+		$q->execute(array('login' => $login,'password' => sha1($psw)));
+		$result = $q->fetch();
+		return $result;
+	
+	}
+	
+	public function getPersonInfo($id) {
+		$q = $this->db->prepare('SELECT * FROM persons WHERE id=?');
+		$q->execute(array($id));
+		$result = $q->fetch();
+		$user_info;
+		if($result){
+			$user_info = array(
+					'login' => $result['login'],
+					'email' => $result['email'],
+					'name' => $result['name'],
+					'streetNum' => $result['streetNum'],
+					'street' => $result['street'],
+					'city' => $result['city'],
+					'gender' => $result['gender'],
+					'tel' => $result['tel'],
+					'fixe' => $result['fixe']
+					);
+		}
+		return $user_info;
+	}
 	
 }
 

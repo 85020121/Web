@@ -2,10 +2,13 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 {
 	margin:0;
 	padding:0;
-
 }
 
 a {
+	text-decoration:none;
+}
+
+a:visited {
 	text-decoration:none;
 }
 
@@ -106,10 +109,12 @@ header#mainHeader #mainMenu {
 	min-height: 1000px; 
 	clear: both;
 	display: inline;
-	padding-bottom: 80px;
+	padding-bottom: 80px; 
 	position: absolute;
-	background: url("/protected/images/sky.jpg") no-repeat fixed; /*no-repeat 0 40px fixed;*/
-/*	top: 40px; */
+	background: #333; 
+/*	background: #f0f0f0 url(/protected/images/bg.gif) repeat -70% 0;
+	background: url("/protected/images/sky.jpg") no-repeat fixed; /*no-repeat 0 40px fixed;
+	top: 40px; */
 }
 
 .wrap {

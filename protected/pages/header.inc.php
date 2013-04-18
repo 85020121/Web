@@ -62,10 +62,11 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 {
 	//echo '你好'. $_SESSION["login"];
 ?>
-   <span style="float:left">你好 <?php $_SESSION["login"] ?></span>
+<div style="color:white;display:inline-block;line-height: 39px;">
+   <a href="/index.php?p=profile"><span style="float:left"><?php echo $_SESSION["login"] ?></span></a>
     <span style="margin: 0 8px;">|</span>
 	<a href="/index.php?p=logout" id="logout" style="color:white"><span>退出</span></a>
-    
+</div>    
 <?php
 } else {
 ?>

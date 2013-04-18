@@ -26,9 +26,8 @@ function isUsernameExist()
 		return;
 	}
 		  
-	$q = $db->prepare('SELECT login FROM persons WHERE login=?');
-	$q->execute(array($user_name));
-  	if ( $q->rowCount() > 0 ) {
+	$manager = new PersonsManager($db);
+  	if ($manager->isUsernameExist($user_name) > 0) {
 		echo "no";
 	} else {
 		echo 'yes';
@@ -62,20 +61,29 @@ function registUser() {
 
 function login() {
 	$db = dbConnect();
-	$q = $db->prepare('SELECT id FROM persons WHERE login=:login AND password=:password');
-	$q->execute(array('login' => $_POST['loginUsername'],'password' => sha1($_POST['loginPsw'])));
-	$result = $q->fetch();
- 
-	if (!$result) {
-	    return false;
-	} else {
-		if(!session_id()) {session_start();}
+ 	$manager = new PersonsManager($db);
+ 	$result = $manager->login($_POST['loginUsername'], $_POST['loginPsw']);
+	if ($result) {
+	    if(!session_id()) {session_start();}
     	$_SESSION['id'] = $result['id'];
 	    $_SESSION['login'] = $_POST['loginUsername'];
-	    return true; 
-	    //echo '<script type="text/javascript">setTimeout(function () {window.location.href="/index.php";},5000);</script>';
+	    return true;
+	} else {
+	    return false; 
 	}
 	
+}
+
+function getPersonInfo($id) {
+	$db = dbConnect();
+ 	$manager = new PersonsManager($db);
+ 	$personInfo = $manager->getPersonInfo($id);
+	if ($personInfo) {
+    	$_SESSION['personInfo'] = $personInfo;
+	    return true;
+	} else {
+	    return false; 
+	}	
 }
 
 

@@ -5,7 +5,7 @@ if(!session_id())
 
 // auto logout when page inactive after 10 minutes
 // set timeout period in seconds
-$inactive = 100;
+$inactive = 600;
 // check to see if $_SESSION['timeout'] is set
 if(isset($_SESSION['timeout']) ) {
 	$session_life = time() - $_SESSION['timeout'];
@@ -17,8 +17,7 @@ $_SESSION['timeout'] = time();
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
