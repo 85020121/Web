@@ -1,4 +1,9 @@
 <?php
+if(!(require_once 'protected/php/cart.php'))
+{
+	die('ERROR : file protected/php/cart.php does not exist.');
+}
+
 if(!session_id())
 	session_start();
 
@@ -13,7 +18,6 @@ if(isset($_SESSION['timeout']) ) {
         { session_destroy(); header("Location: index.php"); }
 }
 $_SESSION['timeout'] = time();
-
 
 ?>
 
@@ -87,25 +91,16 @@ $_SESSION['timeout'] = time();
 <body>
 
 <?php 
-if(!(include 'protected/php/productsManager.php'))
+if(!(include 'protected/php/includes.php'))
 {
-	echo 'ERROR : include protected/php/productsManager.php';
+	die('ERROR : file protected/php/includes.php does not exist.');
 }
-include 'protected/php/registration.php';
-include 'protected/pages/header.inc.php';
 
 ?>
 	
 
 <?php
-try
-{
-	$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
-}
-catch (Exception $e)
-{
-	die('Erreur : ' . $e->getMessage());
-}
+$db = dbConnect();
 $productsManager = new ProductsManager($db);
 ?>
 	

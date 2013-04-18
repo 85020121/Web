@@ -1,6 +1,7 @@
 <?php
 class Product
 {
+	private $id;
 	private $view_count;
 	private $name;
 	private $category;
@@ -17,6 +18,16 @@ class Product
 	private $description;
 	private $images;
 	private $addon;
+	    
+	public function getId() 
+	{
+	  return $this->id;
+	}
+	
+	public function setId($value) 
+	{
+	  $this->id = $value;
+	}
 	
 	public function __construct($product)
 	{

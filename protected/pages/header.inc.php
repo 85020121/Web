@@ -91,6 +91,9 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
             	    <span style="margin: 0 8px;">|</span>
 					<a href="index.php?p=registre" style="color:white"><span>注册</span></a>
 <?php } ?>
+				<div id="shopingCart">
+					<span>购物车(<?php $cart=Cart::getCart(); echo $cart->getOrderSum();?>)</span>
+				</div>
 				</div> <!-- end of loginContainer -->
 
 			</div> <!-- end of mainMenu -->

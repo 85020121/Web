@@ -121,6 +121,12 @@ for($i=0; $i<4; $i++){
 				
 			
 						<div class="goods_item">
+							<form id="goodsForm<?php echo $i ?>" style="display:none;" method="post" action="/index.php?p=cartTest">
+								<input name="goodsId" style="display:none;" value="<?php echo $products[$i]->getId() ?>" />
+								<input name="goodsPrice" style="display:none;" value="<?php echo $products[$i]->getPrice() ?>" />
+								<input name="goodsName" style="display:none;" value="<?php echo $products[$i]->getName() ?>" />
+								<input name="goodsFormat" style="display:none;" value="<?php echo $products[$i]->getFormat() ?>" />
+							</form>
 							<a href=/><img src=<?php echo $products[$i]->getPic_url() ?>></a>
 							<p class="name">
 								<a href=/ title="test"><?php echo $products[$i]->getName() ?></a>
@@ -131,8 +137,12 @@ for($i=0; $i<4; $i++){
 							<p></p>
 							<p>
 								价格：
-								<a href=/ class="shop">￥<?php echo $products[$i]->getPrice() ?>元</a>
+								<a href=/ >￥<?php echo $products[$i]->getPrice() ?>元</a>
 							</p>
+							<p>
+								加入购物车
+								<a href=/ onclick="document.forms.goodsForm<?php echo $i ?>.addToCart(); return false;" class="shop">￥<?php echo $products[$i]->getPrice() ?>元</a>
+							</p>						
 						</div> <!-- end of goods_item --> 
 <?php
 } // end of while
