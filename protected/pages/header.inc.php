@@ -63,10 +63,12 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 	//echo '你好'. $_SESSION["login"];
 ?>
 <div style="color:white;display:inline-block;line-height: 39px;">
-   <a href="/index.php?p=profile"><span style="float:left"><?php echo $_SESSION["login"] ?></span></a>
+	<a href="/index.php?p=profile" style="color:white"><span style="float:left"><?php echo $_SESSION["login"] ?></span></a>
     <span style="margin: 0 8px;">|</span>
 	<a href="/index.php?p=logout" id="logout" style="color:white"><span>退出</span></a>
-</div>    
+	<span style="margin: 0 8px;">|</span>
+	<a href="/index.php?p=cartTest" style="color:white">购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)</a>
+</div>
 <?php
 } else {
 ?>
@@ -90,10 +92,10 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
             	    </div>
             	    <span style="margin: 0 8px;">|</span>
 					<a href="index.php?p=registre" style="color:white"><span>注册</span></a>
+					<span style="margin: 0 8px;">|</span>
+					<a href="/index.php?p=cartTest" style="color:white">购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)</a>
 <?php } ?>
-				<div>
-					<span>购物车(<a href="/index.php?p=cartTest" id="shopingCart"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></a>)</span>
-				</div>
+
 				</div> <!-- end of loginContainer -->
 
 			</div> <!-- end of mainMenu -->

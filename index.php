@@ -97,7 +97,6 @@ if(!(include 'protected/php/includes.php'))
 }
 
 ?>
-	
 
 <?php
 $db = dbConnect();

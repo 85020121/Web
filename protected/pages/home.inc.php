@@ -1,3 +1,4 @@
+
 <script language="javascript">
 
 function addGoods(divId){
@@ -7,23 +8,16 @@ function addGoods(divId){
 	var goodsName = $(goods+" input.goodsName").val();
 	var goodsPrice = $(goods+" input.goodsPrice").val();
 	var goodsFormat = $(goods+" input.goodsFormat").val();
-	alert("before, name is "+goodsName+" and price is "+goodsPrice);
+//	alert("before, name is "+goodsName+" and price is "+goodsPrice);
 	$.post("/index.php?p=shopping&jsAction=addGoods", 
 		{ id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat }, function(data)
     {
-    	$('#shoppingCart').load();
-    	//$('header').load('/protected/pages/header.inc.php');
-    	alert('reload');
- /*   	alert("result is "+data);
-    	if (data == 'ok')
-    		alert("name is "+goodsName+" and price is "+goodsPrice);
-    	if (data == 'in')
-    		alert("in in in"); */
-    }); 
+		$('#addToCartDone').fadeIn('slow');
+		$('#shoppingSum').html(1+parseInt($('#shoppingSum').html()));
+    });
 }
 
 </script>
-
 
 			<div class="legumes_box">
 				<div class="category">
