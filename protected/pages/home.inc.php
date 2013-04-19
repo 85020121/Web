@@ -1,3 +1,30 @@
+<script language="javascript">
+
+function addGoods(divId){
+
+	var goods = '#'+divId;
+	var goodsId = $(goods+" input.goodsId").val();
+	var goodsName = $(goods+" input.goodsName").val();
+	var goodsPrice = $(goods+" input.goodsPrice").val();
+	var goodsFormat = $(goods+" input.goodsFormat").val();
+	alert("before, name is "+goodsName+" and price is "+goodsPrice);
+	$.post("/index.php?p=shopping&jsAction=addGoods", 
+		{ id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat }, function(data)
+    {
+    	$('#shoppingCart').load();
+    	//$('header').load('/protected/pages/header.inc.php');
+    	alert('reload');
+ /*   	alert("result is "+data);
+    	if (data == 'ok')
+    		alert("name is "+goodsName+" and price is "+goodsPrice);
+    	if (data == 'in')
+    		alert("in in in"); */
+    }); 
+}
+
+</script>
+
+
 			<div class="legumes_box">
 				<div class="category">
 					<div class="category_title">
@@ -117,16 +144,21 @@ while ($donnees = $reponse->fetch())
 */
 $products = $productsManager->getFourProducts("fruit");
 for($i=0; $i<4; $i++){
+	$divId = 'goods_item'.$i;
 ?>
 				
 			
-						<div class="goods_item">
-							<form id="goodsForm<?php echo $i ?>" style="display:none;" method="post" action="/index.php?p=cartTest">
+						<div class="goods_item" id="<?php echo $divId ?>">
+					<!--		<form id="goodsForm<?php echo $i ?>" style="display:none;" method="post" action="/index.php?p=cartTest">
 								<input name="goodsId" style="display:none;" value="<?php echo $products[$i]->getId() ?>" />
 								<input name="goodsPrice" style="display:none;" value="<?php echo $products[$i]->getPrice() ?>" />
 								<input name="goodsName" style="display:none;" value="<?php echo $products[$i]->getName() ?>" />
 								<input name="goodsFormat" style="display:none;" value="<?php echo $products[$i]->getFormat() ?>" />
-							</form>
+							</form>  -->
+							<input class="goodsId" name="goodsId" style="display:none;" value="<?php echo $products[$i]->getId() ?>" />
+							<input class="goodsPrice" style="display:none;" value="<?php echo $products[$i]->getPrice() ?>" />
+							<input class="goodsName" style="display:none;" value="<?php echo $products[$i]->getName() ?>" />
+							<input class="goodsFormat" style="display:none;" value="<?php echo $products[$i]->getFormat() ?>" />
 							<a href=/><img src=<?php echo $products[$i]->getPic_url() ?>></a>
 							<p class="name">
 								<a href=/ title="test"><?php echo $products[$i]->getName() ?></a>
@@ -140,8 +172,7 @@ for($i=0; $i<4; $i++){
 								<a href=/ >￥<?php echo $products[$i]->getPrice() ?>元</a>
 							</p>
 							<p>
-								加入购物车
-								<a href=/ onclick="document.forms.goodsForm<?php echo $i ?>.addToCart(); return false;" class="shop">￥<?php echo $products[$i]->getPrice() ?>元</a>
+								<button onclick="addGoods('<?php echo $divId ?>')">加入购物车</button>
 							</p>						
 						</div> <!-- end of goods_item --> 
 <?php

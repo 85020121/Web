@@ -1,5 +1,6 @@
 <?php
 include "personsManager.php";
+
 if(isset($_GET['jsCheck'])){
 	$_GET['jsCheck']();
 }
@@ -95,5 +96,6 @@ function logout(){
 	session_unset();
 	session_destroy();
 }
+
 
 ?>

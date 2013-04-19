@@ -10,7 +10,7 @@ if(!session_id())
 
 // auto logout when page inactive after 10 minutes
 // set timeout period in seconds
-$inactive = 600;
+$inactive = 100;
 // check to see if $_SESSION['timeout'] is set
 if(isset($_SESSION['timeout']) ) {
 	$session_life = time() - $_SESSION['timeout'];
