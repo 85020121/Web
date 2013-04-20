@@ -1,6 +1,7 @@
 <?php
 include "personsManager.php";
 
+
 if(isset($_GET['jsCheck'])){
 	$_GET['jsCheck']();
 }
@@ -9,6 +10,7 @@ function dbConnect() {
 	try
 	{
 		$db = new PDO('mysql:host=localhost;dbname=legumes;charset=UTF8', 'bowen', 'waiwai');
+		//$db = new PDO('mysql:host=bases.sql;dbname=bowen-gao-legumes', 'bowen-gao', 'Waiwai77');
 	}
 	catch (Exception $e)
 	{
@@ -96,6 +98,7 @@ function logout(){
 	session_unset();
 	session_destroy();
 }
+
 
 
 ?>

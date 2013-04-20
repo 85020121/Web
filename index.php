@@ -30,6 +30,7 @@ $_SESSION['timeout'] = time();
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/registre_form.css"/>
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/login.css"/>
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/registre.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="protected/css/shoppingList.css"/>
 <meta name="description" content="放心菜，送到家"/>
 <meta name="keywords" content="有机蔬菜，放心菜，荆门送菜到家，买菜网"/>
 <link rel="alternate" type="application/rss+xml" title="" href=""/>
@@ -126,8 +127,12 @@ $productsManager = new ProductsManager($db);
 		?>
 
 		</div> <!-- end of wrap -->
+
 	</div> <!-- end of body -->
-	
+	<div style="color:black;position:absolute;top:1500px">
+<h3>im here
+<?php print_r($_SESSION['cart']); ?></h3>
+</div>	
 
 </body>
 </html>

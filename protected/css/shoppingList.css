@@ -1,0 +1,12 @@
+
+/* shopping Box */
+#shoppingList {
+    position:absolute;
+    top:40px;
+    right:0;
+    display:none;
+    z-index:29;
+    text-align: left;
+
+}
+

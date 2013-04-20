@@ -1,7 +1,14 @@
 
 <script language="javascript">
+$(document).ready(function() {
+window.cartList=parseInt($('#shoppingSum').html());
+});
+</script>
+
+<script language="javascript">
 
 function addGoods(divId){
+
 
 	var goods = '#'+divId;
 	var goodsId = $(goods+" input.goodsId").val();
@@ -9,12 +16,39 @@ function addGoods(divId){
 	var goodsPrice = $(goods+" input.goodsPrice").val();
 	var goodsFormat = $(goods+" input.goodsFormat").val();
 //	alert("before, name is "+goodsName+" and price is "+goodsPrice);
-	$.post("/index.php?p=shopping&jsAction=addGoods", 
+	$.post("/protected/php/shopping.php?&jsAction=addGoods", 
 		{ id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat }, function(data)
     {
-		$('#addToCartDone').fadeIn('slow');
-		$('#shoppingSum').html(1+parseInt($('#shoppingSum').html()));
-    });
+		// to add
+		console.log("before is "+data);
+		//console.log("parse is "+$.parseJSON(data));
+		data = eval("(" + data + ")");
+		console.log("html is "+data.html);
+/*		for(x in data){
+			console.log("x is "+x);
+			console.log("name is "+data[x]['name']);
+		} */
+		$('#shoppingSum').html(data.data);
+		$('#shoppingList').html(data.html);
+    }).done(function() { 
+    	alert("done");
+	}).fail(function() { 
+		alert("Error");
+	}); 
+/*	jQuery.ajax ({
+    url: "/index.php?p=shopping&jsAction=addGoods",
+    type: "POST",
+    data: { id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat },
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: function(){
+        alert("done");
+    },
+    error: function () {
+		alert("Error");
+    }
+});
+$('#shoppingSum').html("<?php $cart=Cart::getCart(); echo $cart->getOrderSum();?>"); */
 }
 
 </script>

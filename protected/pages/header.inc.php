@@ -1,3 +1,4 @@
+
 <script language="javascript">
 $(function(){
 	var loginUser = $('#loginUsername'),
@@ -31,16 +32,6 @@ $(function(){
 		}
 	});	 
 	
-/*	logout.on('click',function(){
-		alert("in logout");
-        $.post("/protected/php/registration.php?jsCheck=logout").done(function() { alert("second success"); })
-		  .fail(function() { alert("error:"+jqXHR.error());})
-		.always(function() { alert("finished"); }); 
-
-		window.location.href="/index.php";
-	});
-	
-		*/
 });
 
 </script>
@@ -62,13 +53,9 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 {
 	//echo '你好'. $_SESSION["login"];
 ?>
-<div style="color:white;display:inline-block;line-height: 39px;">
-	<a href="/index.php?p=profile" style="color:white"><span style="float:left"><?php echo $_SESSION["login"] ?></span></a>
+	<a href="/index.php?p=profile" id="loginUserName"><span><?php echo $_SESSION["login"] ?></span></a>
     <span style="margin: 0 8px;">|</span>
 	<a href="/index.php?p=logout" id="logout" style="color:white"><span>退出</span></a>
-	<span style="margin: 0 8px;">|</span>
-	<a href="/index.php?p=cartTest" style="color:white">购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)</a>
-</div>
 <?php
 } else {
 ?>
@@ -92,9 +79,26 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
             	    </div>
             	    <span style="margin: 0 8px;">|</span>
 					<a href="index.php?p=registre" style="color:white"><span>注册</span></a>
-					<span style="margin: 0 8px;">|</span>
-					<a href="/index.php?p=cartTest" style="color:white">购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)</a>
 <?php } ?>
+		
+		<span style="margin: 0 8px;">|</span>
+		<a href="/index.php?p=cartTest" style="color:white" id="showList"
+				onmouseover="document.getElementById('shoppingList').style.display = 'block';">
+			购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)
+		</a>
+
+
+<!-- shopping cart -->
+<div id="shoppingList" onmouseout="document.getElementById('shoppingList').style.display = 'none';">
+<?php
+	$cart=Cart::getCart();
+	if($cart->getItemType() > 0) {
+?>
+	<p>总价是: <?php echo $cart->getSum(); ?></p>
+<?php } else { ?>
+	<p>您还没有选择任何商品</p>
+<?php } ?>
+</div>
 
 				</div> <!-- end of loginContainer -->
 

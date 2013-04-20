@@ -8,7 +8,7 @@
 }
 
 /* Login Button */
-#loginButton { 
+#loginButton, #loginUserName { 
     display:inline-block;
 /*    float:right;
     background:#d2e0ea;  url(/protected/images/login/buttonbg.png) repeat-x; 
@@ -22,10 +22,14 @@
 }
 
 /* Login Button Text */
+#loginUserName span {
+    color:white; 
+    display:block
+}
+
+/* Login Button Text */
 #loginButton span {
     color:white; 
-/*    text-shadow:1px 1px #fff; 
-    padding:7px 7px 5px 5px; */
     display:block
 }
 
