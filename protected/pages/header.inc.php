@@ -59,7 +59,9 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 <?php
 } else {
 ?>
-					<a href="#" id="loginButton"><span>登陆</span></a>
+					<a href="#" id="loginButton" onclick="document.getElementById('shoppingList').style.display = 'none';">
+						<span>登陆</span>
+					</a>
                 	<div id="loginBox">                
                     	<form id="loginForm" method="post" action="/index.php?p=loginCheck">
                         	<fieldset id="loginBody">
@@ -83,21 +85,16 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 		
 		<span style="margin: 0 8px;">|</span>
 		<a href="/index.php?p=cartTest" style="color:white" id="showList"
-				onmouseover="document.getElementById('shoppingList').style.display = 'block';">
+				onmouseover="document.getElementById('shoppingList').style.display = 'block';
+				document.getElementById('loginBox').style.display = 'none';">
 			购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)
 		</a>
 
 
 <!-- shopping cart -->
-<div id="shoppingList" onmouseout="document.getElementById('shoppingList').style.display = 'none';">
-<?php
-	$cart=Cart::getCart();
-	if($cart->getItemType() > 0) {
-?>
-	<p>总价是: <?php echo $cart->getSum(); ?></p>
-<?php } else { ?>
-	<p>您还没有选择任何商品</p>
-<?php } ?>
+<div id="shoppingList" onmouseout="document.getElementById('shoppingList').style.display = 'none';"
+		onmouseover="document.getElementById('shoppingList').style.display = 'block';"> 
+	<?php echo getCartListHtml();?>
 </div>
 
 				</div> <!-- end of loginContainer -->

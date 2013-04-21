@@ -36,11 +36,15 @@ $_SESSION['timeout'] = time();
 <link rel="alternate" type="application/rss+xml" title="" href=""/>
 <link rel="icon" href="protected/images/carrot.png" type="image/png"/>
  
+<!--
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.1/mootools-yui-compressed.js" type="text/javascript"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script src="protected/js/jquery.parallaxscroll.js" type="text/javascript"></script>
-<script src="protected/js/jquery.js" type="text/javascript"></script>
+<script src="protected/js/jquery.js" type="text/javascript"></script> -->
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+<script type="text/javascript" src="protected/js/jquery.livequery.js"></script>
 <script type="text/javascript" src="protected/js/login.js"></script>
+<script type="text/javascript" src="protected/js/shopping.js"></script>
+<script src="protected/js/jquery.parallaxscroll.js" type="text/javascript"></script>
 <!--
 <script type="text/javascript">
 

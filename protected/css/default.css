@@ -92,11 +92,11 @@ header#mainHeader #mainMenu {
 
 #branding .logo a {
 	display: block;
-	background: url(../logo.png);
-	width: 200px;
-	height: 35px; 
+	background: url(/protected/images/hot.svg) no-repeat;
+	width: 40px;
+	height: 40px; 
 	text-indent: -9000px;
-	margin: 0px 0;
+	margin: 2px 0;
 }
 
 /*

@@ -22,7 +22,7 @@ $(function(){
 				$("#msgbox").fadeTo(200,0.1,function()  //start fading the messagebox
 				{ 
 			  	//add message and change the class of the box and start fading
-			  	$(this).html('√').addClass('messageboxok').fadeTo(900,1);	
+			  	$(this).html('<img src="/protected/images/icons/tick.png">').addClass('messageboxok').fadeTo(900,1);	
 			  	login.parent().removeClass('error').addClass('success');
 				});
 			} else {

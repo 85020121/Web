@@ -7,6 +7,67 @@
     display:none;
     z-index:29;
     text-align: left;
-
+	border:solid #ccc 1px; padding:2px; 
+	background: white;
 }
 
+#shoppingList .cartID {
+	display:none;
+}
+
+#shoppingList .removeCart {
+	background:url(/protected/images/remove.png);
+}
+
+.cartDetail,#cartTotal { 
+	border:solid #ccc 1px; padding:5px; 
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px; font-size:12px;
+	border-radius: 4px; 
+	font-family:"LubalGraphBdBTBold",Tahoma; 
+	margin-bottom:2px;
+	width:260px;
+	color:black;
+}
+
+#shoppingList .cartName {
+	width:120px;
+	float:left;
+}
+
+div.cartDetail span {
+	float:left;
+}
+
+div.cartDetail div.cartPrice {
+	margin-right: 5px;
+	text-align: right;
+	width:50px;
+	float:left;
+}
+
+div.cartDetail .cartQuantity {
+	margin-left: 5px;
+	text-align: right;
+	width: 35px;
+}
+
+#shoppingList img.removeCart {
+	float:right;
+	cursor:pointer;
+}
+
+#cartTotal span{
+	margin-left:5%;
+	width:130px;
+}
+
+#cartTotal {
+	background: black;
+	color:white;
+}
+
+#goShopping {
+	float:right;
+	color:white;
+}
