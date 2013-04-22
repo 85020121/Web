@@ -28,9 +28,9 @@ top: 0;
 width: 100%;
 height: 39px;
 z-index: 1000;
--webkit-box-shadow: 0px 1px 3px 0px #000;
+/*-webkit-box-shadow: 0px 1px 3px 0px #000;
 box-shadow: 0px 1px 3px 0px #000;
-/*	width: 100%;
+	width: 100%;
 	min-width: 1000px;
 	height: 120px;
 	background: #80B719 no-repeat fixed center;
@@ -161,10 +161,10 @@ header#mainHeader #mainMenu {
 #loginForm {
 	clear: both;
     width:200px; 
-    border:1px solid #899caa;
-    border-radius:3px 3px 3px 3px;
-    -moz-border-radius:3px 3px 3px 3px;
-    margin-top:-1px;
+    border:1px solid #000;
+/*    border-radius:3px 3px 3px 3px;
+    -moz-border-radius:3px 3px 3px 3px; */
+    margin-top:-2px;
 }
 
 #loginForm fieldset {
@@ -176,8 +176,8 @@ header#mainHeader #mainMenu {
 
 fieldset#loginBody {
     background:#fff;
-    border-radius:3px;
-    -moz-border-radius:3px;
+/*    border-radius:3px;
+    -moz-border-radius:3px; */
     padding:5px 7px;
     margin:0;
 }
@@ -208,17 +208,17 @@ fieldset#loginBody {
 
 /* Default Input */
 #loginForm input {
-    width:92%;
+    width:95%;
     border:1px solid #899caa;
-    border-radius:3px;
-    -moz-border-radius:3px;
     color:#3a454d;
+    font-size:12px;
     font-weight:bold;
-    padding:5px 5px;
-    box-shadow:inset 0px 1px 3px #bbb;
+    padding:4px 4px;
+/*    box-shadow:inset 0px 1px 3px #bbb;
     -webkit-box-shadow:inset 0px 1px 3px #bbb;
     -moz-box-shadow:inset 0px 1px 3px #bbb;
-    font-size:12px;
+    border-radius:3px;
+    -moz-border-radius:3px; */
 }
 
 /* Sign In Button */
