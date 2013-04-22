@@ -2,13 +2,17 @@
 /* shopping Box */
 #shoppingList {
     position:absolute;
-    top:40px;
-    right:0;
+    top:39px;
+    right:10%;
     display:none;
     z-index:29;
     text-align: left;
 	border:solid #ccc 1px; padding:2px; 
 	background: white;
+	border: 1px solid #bebebe;
+	-moz-box-shadow: -1px 1px 1px rgba(0,0,0,.2);
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	box-shadow: 0 2px 4px rgba(0,0,0,.2);
 }
 
 #shoppingList .cartID {
@@ -27,7 +31,7 @@
 	font-family:"LubalGraphBdBTBold",Tahoma; 
 	margin-bottom:2px;
 	width:260px;
-	color:black;
+	color:#36c;
 }
 
 #shoppingList .cartName {
@@ -55,6 +59,7 @@ div.cartDetail .cartQuantity {
 #shoppingList img.removeCart {
 	float:right;
 	cursor:pointer;
+	margin-top: 6px;
 }
 
 #cartTotal span{
@@ -70,4 +75,8 @@ div.cartDetail .cartQuantity {
 #goShopping {
 	float:right;
 	color:white;
+}
+
+#cartTotal a:hover {
+	background-color: black;
 }

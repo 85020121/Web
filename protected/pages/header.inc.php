@@ -4,9 +4,17 @@ $(function(){
 	var loginUser = $('#loginUsername'),
 		loginPsw = $('#loginPsw'),
 		loginForm = $('#loginForm'),
-		logout = $('#logout');
+		login = $('#loginButton');
+
+/*	loginPsw.on('click',function(){
+		if (document.getElementById('loginBox').style.display == 'none') {
+			document.getElementById('loginBox').style.display = 'block';
+		} else {
+			document.getElementById('loginBox').style.display == 'none';
+		}
+	});
 		
-/*	loginUser.blur(function(){
+	loginUser.blur(function(){
 		if ($(this).val().length > 0) {
 			loginUser.parent().removeClass('error').addClass('success');
 		} else {
@@ -40,6 +48,7 @@ $(function(){
 		<div id="headerTop">
 			<div id="mainMenu">
 				<div id="branding">
+					<span class="gbtcb"></span>
 					<div class="logo">
 						<strong>
 							<a href="/" title="首页"></a>
@@ -48,21 +57,45 @@ $(function(){
 				<!--	<div class="tagline">健康生活</div> -->
 				</div> <!-- end of branding -->
 				<div id="loginContainer">
+					<span class="gbtcb"></span>
+					<ol class="headRightList">
 <?php 
 if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 {
 	//echo '你好'. $_SESSION["login"];
 ?>
-	<a href="/index.php?p=profile" id="loginUserName"><span><?php echo $_SESSION["login"] ?></span></a>
-    <span style="margin: 0 8px;">|</span>
-	<a href="/index.php?p=logout" id="logout" style="color:white"><span>退出</span></a>
+<li class="listItem">
+	<a href="/index.php?p=profile" id="loginUserName">
+		<span class="listItemStyleTop"></span>
+		<span class="listItemStyle">
+			<?php echo $_SESSION["login"] ?>
+			<span class="flashDown"></span>
+		</span>
+	</a>
+	<ul>
+		<li><a href="#">个人信息</a></li>
+		<li><a href="#">帐户管理</a></li>
+		<li><a href="#">购买纪录</a></li>
+		<li><a href="#">消息</a></li>
+	</ul>
+</li>
+<li class="listItem">
+	<a href="/index.php?p=logout" id="logout">
+	<span class="listItemStyleTop"></span>
+	<span class="listItemStyle">退出</span></a>
+</li>
 <?php
 } else {
 ?>
-					<a href="#" id="loginButton" onclick="document.getElementById('shoppingList').style.display = 'none';">
-						<span>登陆</span>
-					</a>
-                	<div id="loginBox">                
+
+	<li class="listItem">
+		<a href="#" id="loginButton" class="headerLoginLink">
+		<span class="listItemStyleTop"></span>
+		<span class="listItemStyle">登陆</span>
+		</a>
+	</li>
+
+    <div id="loginBox">                
                     	<form id="loginForm" method="post" action="/index.php?p=loginCheck">
                         	<fieldset id="loginBody">
                             	<fieldset class="login user">
@@ -79,17 +112,27 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
     	                    <span style="background:black"><a href="#" style="text-decoration:none">忘记密码？</a></span>
         	            </form>
             	    </div>
-            	    <span style="margin: 0 8px;">|</span>
-					<a href="index.php?p=registre" style="color:white"><span>注册</span></a>
+<!--    <span style="margin: 0 8px;">|</span> -->
+    <li class="listItem">
+		<a href="index.php?p=registre">
+		<span class="listItemStyleTop"></span>
+		<span class="listItemStyle">注册</span></a>
+	</li>
 <?php } ?>
 		
-		<span style="margin: 0 8px;">|</span>
-		<a href="/index.php?p=cartTest" style="color:white" id="showList"
+	<li class="listItem">
+		<a href="/index.php?p=cartTest" id="showList"
 				onmouseover="document.getElementById('shoppingList').style.display = 'block';
-				document.getElementById('loginBox').style.display = 'none';">
-			购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)
+				document.getElementById('loginBox').style.display = 'none';"
+				onmouseout="document.getElementById('shoppingList').style.display = 'none'";>
+			<span class="listItemStyleTop" style="border-top-color:#dd4b39;"></span>
+			<span class="listItemStyle">
+				购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)
+			</span>
 		</a>
 
+	</li>
+</ol>
 
 <!-- shopping cart -->
 <div id="shoppingList" onmouseout="document.getElementById('shoppingList').style.display = 'none';"
