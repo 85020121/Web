@@ -4,7 +4,7 @@ $(function(){
 	var loginUser = $('#loginUsername'),
 		loginPsw = $('#loginPsw'),
 		loginForm = $('#loginForm'),
-		login = $('#loginButton');
+	//	login = $('#loginButton');
 
 /*	loginPsw.on('click',function(){
 		if (document.getElementById('loginBox').style.display == 'none') {

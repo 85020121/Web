@@ -8,6 +8,7 @@ $(function() {
     button.mouseup(function(login) {
         box.toggle();
         button.toggleClass('active');
+     //   document.getElementById('shoppingList').style.display = 'none';
     });
     form.mouseup(function() { 
         return false;
