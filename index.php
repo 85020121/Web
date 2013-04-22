@@ -27,8 +27,7 @@ $_SESSION['timeout'] = time();
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 <title>放心菜</title>
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/default.css"/>
-<link rel="stylesheet" type="text/css" media="all" href="protected/css/registre_form.css"/>
-<link rel="stylesheet" type="text/css" media="all" href="protected/css/login.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="protected/css/header.css"/>
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/registre.css"/>
 <link rel="stylesheet" type="text/css" media="all" href="protected/css/shoppingList.css"/>
 <meta name="description" content="放心菜，送到家"/>
