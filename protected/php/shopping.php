@@ -62,11 +62,16 @@ function getShoppingList() {
 	for ($i=0; $i<4; $i++) {
 		$html = $html . '<div class="gs grid-1of4">';
 		$html = $html . '<div class="item copy">';
-		$html = $html . '<a href="#?itemId='.$products[$i]->getId().'" class="itemBlock";">';
+		$html = $html . '<a href="#?itemId='.$products[$i]->getId().'" class="itemBlock">';
 		$html = $html . '<img src=' . $products[$i]->getPic_url() . ' alt width="150" height="130">';
 		$html = $html . '<h3>'.$products[$i]->getName().'</h3>';
 		$html = $html . '<p><span class="more left">规格：'.$products[$i]->getFormat().'</span>';
 		$html = $html . '<span class="more right">价格：￥'.$products[$i]->getPrice().'元</span></p>';
+		$html = $html . '<article><p><span>产地：'.$products[$i]->getOriginal().'</span></p>';
+		$html = $html . '<p><span>品牌：'.$products[$i]->getMark().'</span></p>';
+		$html = $html . '<p><span>保质期：'.$products[$i]->getDuration().'</span></p>';
+		$html = $html . '<p><span>描述：'.$products[$i]->getDescription().'</span></p>';
+		$html = $html . '</article>';
 		$html = $html . '</a>';
 		$html = $html . '<p><button class="myButton" onclick="addTest('.$products[$i]->getId().',\''.$products[$i]->getName().'\','.$products[$i]->getPrice().',\''.$products[$i]->getFormat().'\')">加入购物车</button></p>';
 		$html = $html . '</div>';
@@ -78,7 +83,7 @@ function getShoppingList() {
 	for ($i=0; $i<4; $i++) {
 		$html = $html . '<div class="gs grid-1of4">';
 		$html = $html . '<div class="item copy">';
-		$html = $html . '<a href="#?itemId='.$products[$i]->getId().'" class="itemBlock";">';
+		$html = $html . '<a href="#?itemId='.$products[$i]->getId().'" class="itemBlock">';
 		$html = $html . '<img src=' . $products[$i]->getPic_url() . ' alt width="150" height="130">';
 		$html = $html . '<h3>'.$products[$i]->getName().'</h3>';
 		$html = $html . '<p><span class="more left">规格：'.$products[$i]->getFormat().'</span>';

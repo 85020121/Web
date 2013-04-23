@@ -5,6 +5,15 @@ $(function(){
     	//alert("gs_objectId="+gs_objectId);
     });
 	
+	$('.itemBlock').hover(
+		 function () {
+            $(this).find('article').animate({opacity:'1'});
+        },
+        function () {
+            $(this).find('article').animate({opacity:'0'});
+        }
+ 	);
+	
 	// remove goods from shopping cart by goods id
 	$('.removeCart').livequery('click', function() {
 		var goodsId = $(this).parent().children(".cartID").val();

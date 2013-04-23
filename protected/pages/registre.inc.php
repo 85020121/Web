@@ -1,11 +1,3 @@
-<?php
-if (isset($_SESSION['id']) AND isset($_SESSION['login'])) {
-	header("Location: /index.php"); /* Redirect browser */
-	exit();
-
-}
-?>
-
 <script language="javascript">
 
 $(function(){
