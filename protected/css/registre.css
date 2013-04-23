@@ -3,16 +3,7 @@
     font-weight: 500;
     font-size: 15pt;
 }
-/*
-a {
-    color: #656565;
-    text-decoration:none;
-}
-*/
-a:hover{
-    color: #abda0f;
-    text-decoration: none;
-}
+
 .register h1 {
     font-weight:200;
     color: #888888;

@@ -5,9 +5,9 @@ if(!(include 'protected/php/productsManager.php'))
 	die('ERROR : file protected/php/productsManager.php does not exist.');
 }
 
-if(!(include 'protected/php/registration.php'))
+if(!(include 'protected/php/functions.php'))
 {
-	die('ERROR : file protected/php/registration.php does not exist.');
+	die('ERROR : file protected/php/functions.php does not exist.');
 }
 
 if(!(include 'protected/php/shopping.php'))

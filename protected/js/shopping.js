@@ -1,4 +1,10 @@
 $(function(){
+
+    $('.itemBlcok').click(function() {
+    	alert("im in");
+    	//alert("gs_objectId="+gs_objectId);
+    });
+	
 	// remove goods from shopping cart by goods id
 	$('.removeCart').livequery('click', function() {
 		var goodsId = $(this).parent().children(".cartID").val();
@@ -21,6 +27,24 @@ $(function(){
 
 });
 
+function addTest(goodsId, goodsName, goodsPrice, goodsFormat) {
+//	alert('id is '+goodsId+' and name is '+goodsName+' and price is '+goodsPrice+' and format is '+goodsFormat);
+	$.post("/protected/php/shopping.php?&jsAction=addGoods", 
+		{ id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat }, function(data)
+    {
+		// to add
+		data = eval("(" + data + ")");
+		//console.log("data is "+data);
+		$('#shoppingSum').html(data.data);
+		$('#shoppingList').html(data.html);
+    }).done(function() { 
+    	alert("done");
+    	$('html, body').css("cursor", "auto");
+	}).fail(function() { 
+		alert("Error");
+		$('html, body').css("cursor", "auto");
+	});
+}
 
 // add goods to shopping cart
 function addGoods(divId){

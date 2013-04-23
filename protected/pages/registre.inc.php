@@ -24,7 +24,7 @@ $(function(){
 		//remove all the class add the messagebox classes and start fading
 		$("#msgbox").removeClass().addClass('messagebox').text('Checking...').fadeIn("slow");
 		//check the username exists or not from ajax
-		$.post("/protected/php/registration.php?jsCheck=isUsernameExist",{ user_name:$(this).val() } ,function(data)
+		$.post("/protected/php/functions.php?jsCheck=isUsernameExist",{ user_name:$(this).val() } ,function(data)
         {
 			if(data=='yes') {
 				$("#msgbox").fadeTo(200,0.1,function()  //start fading the messagebox
