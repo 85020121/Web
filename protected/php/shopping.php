@@ -73,7 +73,7 @@ function getShoppingList() {
 		$html = $html . '<p><span>描述：'.$products[$i]->getDescription().'</span></p>';
 		$html = $html . '</article>';
 		$html = $html . '</a>';
-		$html = $html . '<p><button class="myButton" onclick="addTest('.$products[$i]->getId().',\''.$products[$i]->getName().'\','.$products[$i]->getPrice().',\''.$products[$i]->getFormat().'\')">加入购物车</button></p>';
+		$html = $html . '<p><button class="myButton" onclick="addTest($(this),'.$products[$i]->getId().',\''.$products[$i]->getName().'\','.$products[$i]->getPrice().',\''.$products[$i]->getFormat().'\')">加入购物车</button></p>';
 		$html = $html . '</div>';
 		$html = $html . '</div>';
 	}
