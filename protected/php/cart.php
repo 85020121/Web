@@ -22,6 +22,18 @@ class Cart {
 		return $_SESSION['cart'];
 	}
 	
+/*	static public function getCart(){
+		if (!isset($_COOKIE['cart']) || !(unserialize($_COOKIE["cart"]) instanceof self)) {
+			$_COOKIE['cart'] = serialize(self::getIns());
+			echo '<script> alert("new cart"); </script>';
+		}
+		return unserialize($_SESSION['cart']);
+	}
+*/
+	public function getItems() {
+		return $this->itme;
+	}
+	
 	public function isInItem($goodsId){
 		if ($this->getItemType() == 0) {
 			return false;
@@ -35,7 +47,7 @@ class Cart {
 	}
 	
 	// add a goods
-	public function addItem($id, $name, $price, $format){
+	public function addItem($id, $name, $price, $format, $img){
 		if ($this->isInItem($id)) {
 			$this->itme[$id]['num'] += 1;
 			return;
@@ -46,6 +58,7 @@ class Cart {
 		$this->itme[$id]['name'] = $name;
 		$this->itme[$id]['price'] = $price;
 		$this->itme[$id]['format'] = $format;
+		$this->itme[$id]['img'] = $img;
 	}
 	
 	public function reduceItem($id, $num){

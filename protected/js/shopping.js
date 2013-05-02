@@ -6,8 +6,8 @@ $(function(){
     });
 	
 	$('.itemBlock').hover(
-		 function () {
-            $(this).find('article').animate({opacity:'1'});
+		function () {
+            $(this).find('article').animate({opacity:'1'}, 1000);
         },
         function () {
             $(this).find('article').animate({opacity:'0'});
@@ -38,11 +38,13 @@ $(function(){
 
 function addTest(el, goodsId, goodsName, goodsPrice, goodsFormat) {
 	// loading animation
-	var loadingBox = new ajaxLoader(el.parent().parent());
+	var parent = el.parent().parent();
+	var loadingBox = new ajaxLoader(parent);
+	var imgSrc = parent.find('a img')[0].src;;
 
-//	alert('id is '+goodsId+' and name is '+goodsName+' and price is '+goodsPrice+' and format is '+goodsFormat);
+//	alert('id is '+goodsId+' and name is '+goodsName+' and price is '+goodsPrice+' and format is '+goodsFormat+' and img src is '+imgSrc);
 	$.post("/protected/php/shopping.php?&jsAction=addGoods", 
-		{ id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat }, function(data)
+		{ id:goodsId, name:goodsName, price:goodsPrice, format:goodsFormat, img:imgSrc }, function(data)
     {
 		// to add
 		data = eval("(" + data + ")");

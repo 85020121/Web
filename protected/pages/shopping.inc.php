@@ -1,17 +1,6 @@
 
-<?php
-//$cart=Cart::getCart();
-if(isset($_GET['jsAction'])){
-	$_GET['jsAction']();
-}
-
-// add goods to shopping cart
-function addGoods(){
-	$cart=Cart::getCart();
-	$cart->addItem($_POST['id'],$_POST['name'],$_POST['price'],$_POST['format']);
-}
-//print_r($cart);
-
-?>
-
-
+<div id="cart-wrapper" class="page-content clearfix">
+	<div id="customer-cart" class="box">
+		<h1 class="heading primary">购物清单</h1>
+	</div>
+</div> <!-- end of cart-wrapper -->

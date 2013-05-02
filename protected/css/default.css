@@ -1,3 +1,8 @@
+* {
+margin: 0;
+padding: 0;
+}
+
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td
 {
 	margin:0;
@@ -34,7 +39,7 @@ a:hover{
 	display: inline;
 	padding-bottom: 80px; 
 	position: absolute;
-	background: #fff;
+	background: #f1f1f1;
 /*	background: #1e8cbe; 
 	background: #f0f0f0 url(/protected/images/bg.gif) repeat -70% 0;
 	background: url("/protected/images/sky.jpg") no-repeat fixed; /*no-repeat 0 40px fixed;
@@ -278,7 +283,11 @@ margin:1em;
 color: red;
 }
 
-.products .row .item a:hover span{
+.products .row .item a:hover h3 {
+color: #08c;
+}
+
+.products .row .item a:hover span {
 color: #08c;
 }
 
@@ -319,13 +328,15 @@ color: #08c;
         -webkit-border-radius:6px;
         border-radius:6px;
         
-        border:1px solid #057fd0;
+        border:0px solid #33bdef;
         
         display:inline-block;
         color:#ffffff;
         font-size:12px;
         font-weight:bold;
         text-decoration:none;
+        padding-left: 3px;
+        padding-right: 3px;
             
     }
     .myButton:hover {

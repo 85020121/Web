@@ -162,7 +162,7 @@ form.register input[type=password]
     border: 1px solid #E1E1E1;
     height: 18px;
 }
-.button
+.register .button
 {
     background: #abda0f url(/protected/images/registre/overlay.png) repeat-x;
     padding: 8px 10px 8px;

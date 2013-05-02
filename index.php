@@ -17,8 +17,18 @@ if(isset($_SESSION['timeout']) ) {
 	if($session_life > $inactive)
         { session_destroy(); header("Location: index.php"); }
 }
-$_SESSION['timeout'] = time();
 
+$_SESSION['timeout'] = time();
+//setcookie("cart", "", time()-3600);
+//$cart = Cart::getCart();
+//setcookie("cart", serialize($cart), time()+3600);
+/*
+setcookie("user", "Alex Porter", time()+3600);
+if (!isset($_COOKIE["user"])) {
+	echo "您浏览器的 cookie 功能被禁用，请启用此功能。";                
+} else {
+    echo "您浏览器的 cookie 功能OK。";
+}  */
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -90,6 +100,28 @@ $_SESSION['timeout'] = time();
 	});
 </script> -->
 
+<script type="text/javascript">
+//	$(document).ready(function() {
+function checkCookieEnable() {
+	var cookieEnabled=(navigator.cookieEnabled)? true : false;
+	//if not IE4+ nor NS6+
+	if (typeof navigator.cookieEnabled=="undefined" && !cookieEnabled){ 
+		document.cookie="testcookie";
+		cookieEnabled=(document.cookie.indexOf("testcookie")!=-1)? true : false;
+	}
+	return cookieEnabled;
+}
+
+/*
+if (!checkCookieEnable()) {
+	alert("您浏览器的 cookie 功能被禁用，请启用此功能。"); 
+} else {
+    alert("您浏览器的 cookie 功能OK。");
+} 
+*/
+
+</script>
+
 </head>
 
 <body>
@@ -97,7 +129,7 @@ $_SESSION['timeout'] = time();
 <?php 
 if(!(include 'protected/php/includes.php'))
 {
-	die('ERROR : file protected/php/includes.php does not exist.');
+	die('ERROR : file protected/php/includes.php does not exist');
 }
 
 ?>

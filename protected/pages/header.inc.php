@@ -3,7 +3,7 @@
 $(function(){
 	var loginUser = $('#loginUsername'),
 		loginPsw = $('#loginPsw'),
-		loginForm = $('#loginForm'),
+		loginForm = $('#loginForm');
 	//	login = $('#loginButton');
 
 /*	loginPsw.on('click',function(){
@@ -30,11 +30,10 @@ $(function(){
 		}
 	});  */
 	
-	loginForm.on('submit',function(e){		
+	loginForm.on('submit',function(e){
 		if(loginUser.val().length > 0 && loginPsw.val().length > 0){
-		
+	
 		} else {
-			// No. Prevent form submission
 			alert("请正确填写登陆信息。");
 			e.preventDefault();		
 		}
@@ -67,6 +66,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 <li class="listItem">
 	<a href="/index.php?p=profile" id="loginUserName">
 		<span class="listItemStyleTop"></span>
+		<img src='/protected/images/icons/im.png' style="float:left; margin-top:9px; margin-right:2px">
 		<span class="listItemStyle">
 			<?php echo $_SESSION["login"] ?>
 			<span class="flashDown"></span>
