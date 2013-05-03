@@ -1,4 +1,24 @@
-$(function(){
+$(document).ready(function(){
+	var goodsIDs = new Array();
+	
+	$('.addToCartButton').click(function(){
+		var father = $(this).closest('.item');
+		var itemID = father.children('.goodsID').val();
+		var itemName = father.find('.goodsName').html();
+		var itemPrice = parseFloat(father.find('.goodsPrice').html());
+		var itemFormat = father.find('.goodsFormat').html();
+		console.log("ids are " + goodsIDs);
+		if($.inArray(itemID, goodsIDs) > -1){
+			console.log("in array");
+			//var lastSum = 
+		} else {
+			console.log("in append");
+			goodsIDs.push(itemID);
+		//	var html = '<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>';
+			$('#shoppingList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');
+		}
+		console.log("out");
+	});
 
     $('.itemBlcok').click(function() {
     	alert("im in");
@@ -35,7 +55,7 @@ $(function(){
 	});	// end of removeCart
 
 });
-
+/*
 function addTest(el, goodsId, goodsName, goodsPrice, goodsFormat) {
 	// loading animation
 	var parent = el.parent().parent();
@@ -58,7 +78,7 @@ function addTest(el, goodsId, goodsName, goodsPrice, goodsFormat) {
 		alert("Error");
 		$('html, body').css("cursor", "auto");
 	});
-}
+}  */
 
 // add goods to shopping cart
 function addGoods(divId){

@@ -19,10 +19,13 @@ if(isset($_SESSION['timeout']) ) {
 }
 
 $_SESSION['timeout'] = time();
-//setcookie("cart", "", time()-3600);
-//$cart = Cart::getCart();
-//setcookie("cart", serialize($cart), time()+3600);
 /*
+if(!isset($_COOKIE['cart'])) {
+//	setcookie("cart", "", time()-3600);
+	$cart = Cart::getCart();
+//	setcookie("cart", serialize($cart), time()+3600);
+}
+
 setcookie("user", "Alex Porter", time()+3600);
 if (!isset($_COOKIE["user"])) {
 	echo "您浏览器的 cookie 功能被禁用，请启用此功能。";                
@@ -165,8 +168,9 @@ $productsManager = new ProductsManager($db);
 
 	</div> <!-- end of body -->
 	<div style="color:black;position:absolute;top:1500px">
-<h3>im here
-<?php print_r($_SESSION['cart']); ?></h3>
+<h3>
+<?php // print_r($_SESSION['cart']); 
+?></h3>
 </div>	
 
 </body>

@@ -1,6 +1,6 @@
 <?php
 
-class Cart {
+class CookieCart {
 	static protected $ins; // instance
 	protected $itme = array(); // orders stocker
 	
@@ -21,14 +21,13 @@ class Cart {
 		}
 		return $_SESSION['cart'];
 	}
-
+	
 /*	static public function getCart(){
-		if (!isset($_COOKIE['cart'])){// || !(unserialize($_COOKIE['cart']) instanceof self)) {
-			setcookie("cart", serialize(self::getIns()), time()+3600);
+		if (!isset($_COOKIE['cart']) || !(unserialize($_COOKIE["cart"]) instanceof self)) {
+			$_COOKIE['cart'] = serialize(self::getIns());
 			echo '<script> alert("new cart"); </script>';
 		}
-		return unserialize($_COOKIE['cart']); 
-		return self::getIns();
+		return unserialize($_SESSION['cart']);
 	}
 */
 	public function getItems() {
