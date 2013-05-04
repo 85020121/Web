@@ -91,7 +91,7 @@ class Product
 	
 	public function setPrice($value) 
 	{
-	  $this->price = $value;
+	  $this->price = number_format((float)$value, 2, '.', '');
 	}
 	    
 	public function getVip_price() 

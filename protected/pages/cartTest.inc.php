@@ -12,6 +12,49 @@ $(function(){
   
 		return false;
     });
+    
+    var lastQuantity;
+    var lastOrdersSum;
+    var lastOrderTotal;
+    var bubble = $('#coherent_bubble_node');
+    $('.quantityInput').click(function(){
+	   	lastQuantity = parseInt($(this).val());
+	   	
+    }).change(function(){
+    	var newQuantity = parseInt($(this).val());
+		//console.log('value is '+lastQuantity+' and new is '+newQuantity);
+    	if (isNaN(newQuantity)){
+    		$(this).val(lastQuantity);
+    		return false;
+    	}
+    	if (newQuantity <=0 || newQuantity > 999) {
+   		   	var offset = $(this).offset();
+			bubble.find('.bubbleContent').html('<span class="bubbleContentStyle">请输入1到999之间的数字</span>');
+			var bubbleLeft = offset.left - bubble.width()/2 - 10 + $(this).width()/2;
+			var bubbleTop = offset.top - $(this).height() - bubble.height() - 22; // arrow height is 16
+			bubble.css({opacity:1, left:bubbleLeft, top:bubbleTop});
+			window.location.href='#';
+    	} else {
+    		bubble.css({opacity:0});
+    		$(this).val(newQuantity);
+    		var father = $(this).closest('ul');
+			var price = father.find('.orderPrice').html()*1;
+			var orderTotal = father.find('.orderTotal');
+    		
+			lastOrdersSum = $('#ordersSum').html() * 1;
+			lastOrderTotal = orderTotal.html() * 1;
+			
+			$.post("/protected/php/shopping.php?&jsAction=updateQuantity", 
+				{id:parseInt(father.children('.orderID').html()), quantity:newQuantity}, 
+				function(data){}).done(function() { 
+		    		orderTotal.html((price*newQuantity).toFixed(2));
+    				$('#ordersSum').html((lastOrdersSum - lastOrderTotal + price*newQuantity).toFixed(2));
+				}).fail(function(){
+					alert("修改失败，请稍后再试。");
+				});
+
+    	}
+    });
 	
 });
 </script>
@@ -94,7 +137,7 @@ $(function(){
                             	</tr>
                             	<tr id="cart-summary-order-total" class="line-total h3 strong">
                                     <td class="label">总价</td>
-                                	<td><span id="cart-summary-order-total-value"><?php getOrdersSum(); ?>&nbsp元</span></td>
+                                	<td><span id="cart-summary-order-total-value"><span id="ordersSum"><?php getOrdersSum(); ?></span>&nbsp元</span></td>
                                 </tr>
 							</tbody>
 						</table>
@@ -124,7 +167,7 @@ $(function(){
 </div> <!-- end of cart-wrapper -->
 
 <?php
-print_r($cart);
+//print_r($cart);
 
 ?>
 

@@ -4,6 +4,7 @@ class CookieCart {
 
 	static $cookieName = 'shopping';
 	static $saveTime;
+	static $cookieLifeCircle = 1000;
 	
 	protected $item = array(); // orders stocker
 	
@@ -12,7 +13,7 @@ class CookieCart {
 		if(isset($_COOKIE[self::$cookieName])) {
 			$this->item = unserialize($_COOKIE[self::$cookieName]);
 		}
-    	self::$saveTime=time()+1000;
+    	self::$saveTime=time()+self::$cookieLifeCircle;
 		$this->updateCookie();
     }
 	
@@ -49,12 +50,22 @@ class CookieCart {
 			$this->item[$id] = array();
 			$this->item[$id]['num'] = 1;
 			$this->item[$id]['name'] = $name;
-			$this->item[$id]['price'] = $price;
+			$this->item[$id]['price'] = number_format((float)$price, 2, '.', '');
 			$this->item[$id]['format'] = $format;
 			$this->item[$id]['img'] = $img;
 		}
 		$this->updateCookie();
 	}
+	
+	public function updateQuantity($id, $quantity){
+		if (!$this->isInItem($id) || $quantity <=0) {
+			return;
+		}
+
+		$this->item[$id]['num'] = $quantity;
+		
+		$this->updateCookie();
+	}	
 	
 	public function reduceItem($id){
 		if (!$this->isInItem($id)) {
@@ -113,7 +124,7 @@ class CookieCart {
 		foreach ($this->item as $key=>$value){
 			$sum += $value['price'] * $value['num'];
 		}
-		return $sum;
+		return number_format((float)$sum, 2, '.', '');;
 	}
 	
 	public function emptyItem(){

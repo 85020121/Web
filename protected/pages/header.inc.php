@@ -127,7 +127,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 				onmouseout="document.getElementById('shoppingList').style.display = 'none'";>
 			<span class="listItemStyleTop" style="border-top-color:#dd4b39;"></span>
 			<span class="listItemStyle">
-				购物车(<span id="shoppingSum"><?php 	$cart=new CookieCart(); echo $cart->getOrderSum();?></span>)
+				购物车(<span id="shoppingSum"><?php 	getOrdersQuantity();?></span>)
 			</span>
 		</a>
 

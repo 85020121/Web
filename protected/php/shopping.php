@@ -67,7 +67,8 @@ function getCartListHtml(){
 	$html = '<div class="ordersList">';
 	if($cart->getItemType() > 0) {
 		foreach ($cart->getItem() as $key=>$value){
-			$html = $html . '<div class="cartInfo"><div class="cartDetail">';
+			$html = $html . '<div class="cartInfo">';
+			$html = $html . '<div id="item-'. $key .'" class="cartDetail">';
 			$html = $html . '<input class="cartID" value='.$key.'>';
 			$html = $html . '<div class="cartName">' . $value['name']. '</div>';
 			$html = $html . '<div class="cartPrice">' . $value['price']. '元</div>';
@@ -137,15 +138,26 @@ function getCustomerShoppingList() {
 			$html = 'None';
 	} else {
 		foreach($cart->getItem() as $key=>$value) {
-			$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">从购物车中删除此件物品</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $value['img'] . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $value['format'] . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span>' . $value['price'] . ' 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input value=' . $value['num'] . ' type="number" min="1" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong>' . $value['price'] * $value['num'] . ' 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
+			$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">从购物车中删除此件物品</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $value['img'] . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="orderID" style="display:none">' . $key . '</li><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $value['format'] . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span><span class="orderPrice">' . $value['price'] . '</span> 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input class="quantityInput" value=' . $value['num'] . ' min="1" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong><span class="orderTotal">'. number_format((float)($value['price'] * $value['num']), 2, '.', '') . '</span> 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
 		}
 	}
 	echo $html;
 }
 
 function getOrdersSum() {
-	$cart = Cart::getCart();
+	//$cart = Cart::getCart();
+	$cart=new CookieCart();
 	echo $cart->getSum();
+}
+
+function getOrdersQuantity() {
+	$cart=new CookieCart();
+	echo $cart->getOrderSum();
+}
+
+function updateQuantity() {
+	$cart=new CookieCart();
+	echo $cart->updateQuantity($_POST['id'], $_POST['quantity']);
 }
 
 function checkCookie(){

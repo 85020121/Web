@@ -138,6 +138,16 @@ if (!checkCookieEnable()) {
 
 <body>
 
+<!-- bubble block -->
+<div id="coherent_bubble_node" class="box bubble" role="alertdialog">
+	<div class="bubbleContainer">
+		<div class="bubbleContent">
+		
+		</div>
+	</div>
+	<span class="arrow"></span>
+</div>
+
 <?php 
 if(!(include 'protected/php/includes.php'))
 {

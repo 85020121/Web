@@ -1,8 +1,14 @@
 $(document).ready(function(){
 	var goodsIDs = new Array();
 	
+	var children=$('#shoppingList .ordersList').children();
+	$('#shoppingList .ordersList').children().each(function(index, val){
+   		//console.log('id is '+$(this).find('.cartID').val()+' idx is '+index+' val is '+val);
+   		goodsIDs.push($(this).find('.cartID').val());
+	});
+	
 	$('.addToCartButton').click(function(){
-		console.log("ids are " + goodsIDs);
+		//console.log("ids are " + goodsIDs);
 		var father = $(this).closest('.item');
 		var loadingBox = new ajaxLoader(father);
 		var itemID = father.children('.goodsID').val();
@@ -15,30 +21,29 @@ $(document).ready(function(){
 		$.post("/protected/php/shopping.php?&jsAction=addGoods", 
 		{ id:itemID, name:itemName, price:itemPrice, format:itemFormat, img:imgSrc }, 
 		function(data){}).done(function() { 
-		if($.inArray(itemID, goodsIDs) > -1){
-			var quantity = parseInt($('#item-'+itemID).children('.cartQuantity').html());
-			$('#item-'+itemID).children('.cartQuantity').html(quantity+1);
-			var total = $('#priceSum').html() * 1;
-			$('#priceSum').html((total+itemPrice).toFixed(2));
-		} else {
-			goodsIDs.push(itemID);
-		//	var html = '<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>';
-			$('#shoppingList .ordersList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'&nbsp元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');
-			var total = $('#priceSum').html() * 1;
-			$('#priceSum').html((total+itemPrice).toFixed(2));
-		}
-		var sum = parseInt($('#shoppingSum').html()) + 1;
-		$('#shoppingSum').html(sum);
-		loadingBox.remove();
-    	$('html, body').css("cursor", "auto");
+			//console.log($.inArray(itemID, goodsIDs));
+			if($.inArray(itemID, goodsIDs) > -1){
+				var quantity = parseInt($('#item-'+itemID).children('.cartQuantity').html());
+				$('#item-'+itemID).children('.cartQuantity').html(quantity+1);
+				var total = $('#priceSum').html() * 1;
+				$('#priceSum').html((total+itemPrice).toFixed(2));
+			} else {
+				goodsIDs.push(itemID);
+				//	var html = '<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>';
+				$('#shoppingList .ordersList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'&nbsp元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');
+				var total = $('#priceSum').html() * 1;
+				$('#priceSum').html((total+itemPrice).toFixed(2));
+			}
+			var sum = parseInt($('#shoppingSum').html()) + 1;
+			$('#shoppingSum').html(sum);
+			loadingBox.remove();
+    		$('html, body').css("cursor", "auto");
 
 		}).fail(function() { 
 			alert("Error");
 			$('html, body').css("cursor", "auto");
 		});
-		
 
-		console.log("out");
 	});
 
     $('.itemBlcok').click(function() {
