@@ -1,90 +1,87 @@
 <?php
 
 class CookieCart {
-	static protected $ins; // instance
-	protected $itme = array(); // orders stocker
+
+	static $cookieName = 'shopping';
+	static $saveTime;
 	
-	final protected function __construct(){}
+	protected $item = array(); // orders stocker
+	
+	
+	function __construct(){
+		if(isset($_COOKIE[self::$cookieName])) {
+			$this->item = unserialize($_COOKIE[self::$cookieName]);
+		}
+    	self::$saveTime=time()+1000;
+		$this->updateCookie();
+    }
 	
 	final protected function __clone(){}
 	
-	static protected function getIns(){
-		if (!(self::$ins instanceof self)) {
-			self::$ins = new self();
-		}
-		return self::$ins;
+	private function updateCookie() {
+		//ob_start();
+		setcookie(self::$cookieName,serialize($this->item),self::$saveTime, '/');		
+		//ob_end_flush();
 	}
-	
-	static public function getCart(){
-		if (!isset($_SESSION['cart']) || !($_SESSION["cart"] instanceof self)) {
-			$_SESSION['cart'] = self::getIns();
-		}
-		return $_SESSION['cart'];
-	}
-	
-/*	static public function getCart(){
-		if (!isset($_COOKIE['cart']) || !(unserialize($_COOKIE["cart"]) instanceof self)) {
-			$_COOKIE['cart'] = serialize(self::getIns());
-			echo '<script> alert("new cart"); </script>';
-		}
-		return unserialize($_SESSION['cart']);
-	}
-*/
-	public function getItems() {
-		return $this->itme;
-	}
+
+    public function clear_cart()
+    {
+      setcookie(self::$cookieName,'',time()-3600); 
+    }
 	
 	public function isInItem($goodsId){
 		if ($this->getItemType() == 0) {
 			return false;
 		}
 		
-		if (!(array_key_exists($goodsId, $this->itme))) {
+		if (!(array_key_exists($goodsId, $this->item))) {
 			return false;
 		} else {
-			return $this->itme[$goodsId]['num']; // return the quantity of the goods
+			return $this->item[$goodsId]['num']; // return the quantity of the goods
 		}
 	}
 	
 	// add a goods
 	public function addItem($id, $name, $price, $format, $img){
 		if ($this->isInItem($id)) {
-			$this->itme[$id]['num'] += 1;
-			return;
+			$this->item[$id]['num'] += 1;
+		} else {
+			$this->item[$id] = array();
+			$this->item[$id]['num'] = 1;
+			$this->item[$id]['name'] = $name;
+			$this->item[$id]['price'] = $price;
+			$this->item[$id]['format'] = $format;
+			$this->item[$id]['img'] = $img;
 		}
-		
-		$this->itme[$id] = array();
-		$this->itme[$id]['num'] = 1;
-		$this->itme[$id]['name'] = $name;
-		$this->itme[$id]['price'] = $price;
-		$this->itme[$id]['format'] = $format;
-		$this->itme[$id]['img'] = $img;
+		$this->updateCookie();
 	}
 	
-	public function reduceItem($id, $num){
+	public function reduceItem($id){
 		if (!$this->isInItem($id)) {
 			return;
 		}
 		
-		if ($num >= $this->itme[$id]['num']) {
-			unset($this->itme[$id]);
+		if ($this->item[$id]['num'] <=1) {
+			unset($this->item[$id]);
 		} else {
-			$this->itme[$id]['num'] -= $num;
+			$this->item[$id]['num'] -= 1;
 		}
+		$this->updateCookie();
 	}
 	
 	public function delItem($id){
 		if ($this->isInItem($id)) {
-			unset($this->itme[$id]);
+			unset($this->item[$id]);
 		}
+		$this->updateCookie();
 	}
 	
 	public function getItem(){
-		return $this->itme;
+		return $this->item;
 	}
 	
 	public function getItemType(){
-		return count($this->itme);
+		return count($this->item);
 	}
 	
 	public function getOrderSum(){
@@ -93,7 +90,7 @@ class CookieCart {
 		}
 		
 		$sum = 0;
-		foreach ($this->itme as $key=>$value){
+		foreach ($this->item as $key=>$value){
 			$sum += $value['num'];
 		}
 		return $sum;
@@ -101,7 +98,7 @@ class CookieCart {
 	
 	public function getPrice($id){
 		if ($this->isInItem($id)) {
-			return $this->itme[$id]['price']*$this->itme[$id]['num'];
+			return $this->item[$id]['price']*$this->item[$id]['num'];
 		} else {
 			return 0;
 		}
@@ -113,16 +110,36 @@ class CookieCart {
 		}
 		
 		$sum=0;
-		foreach ($this->itme as $key=>$value){
+		foreach ($this->item as $key=>$value){
 			$sum += $value['price'] * $value['num'];
 		}
 		return $sum;
 	}
 	
 	public function emptyItem(){
-		$this->itme = array();
+		$this->item = array();
 	}
 }
 
+/*
+ob_start();
+$cart = new CookieCart();
+$cart->addItem(1, 'test', 10.5, '500g', 'aaaaaaa');
+$cart->addItem(1, 'test', 10.5, '500g', 'aaaaaaa');
+echo "<hr color='red'>";
+echo "ADD  ";
+print_r($cart);
+$cart->reduceItem(1);
+echo "<hr color='red'>";
+echo "REDUCE  ";
+print_r($cart);
 
+echo "<hr color='red'>";
+if(isset($_COOKIE[$cart::$cookieName]))
+	print_r(unserialize($_COOKIE[$cart::$cookieName]));
+//ob_end_flush();
+
+$cart = new CookieCart();
+$cart->addItem(5, 'test', 10.5, '500g', 'aaaaaaa');
+*/
 ?>

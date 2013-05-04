@@ -4,6 +4,11 @@ if(!(require_once 'protected/php/cart.php'))
 	die('ERROR : file protected/php/cart.php does not exist.');
 }
 
+if(!(require_once 'protected/php/cookieCart.php'))
+{
+	die('ERROR : file protected/php/cookieCart.php does not exist.');
+}
+
 if(!session_id())
 	session_start();
 
@@ -31,7 +36,11 @@ if (!isset($_COOKIE["user"])) {
 	echo "您浏览器的 cookie 功能被禁用，请启用此功能。";                
 } else {
     echo "您浏览器的 cookie 功能OK。";
-}  */
+}  
+
+
+$cart=new CookieCart();
+ob_end_flush();*/ob_start();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

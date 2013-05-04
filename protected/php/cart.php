@@ -2,7 +2,7 @@
 
 class Cart {
 	static protected $ins; // instance
-	protected $itme = array(); // orders stocker
+	protected $item = array(); // orders stocker
 	
 	final protected function __construct(){}
 	
@@ -32,7 +32,7 @@ class Cart {
 	}
 */
 	public function getItems() {
-		return $this->itme;
+		return $this->item;
 	}
 	
 	public function isInItem($goodsId){
@@ -40,26 +40,26 @@ class Cart {
 			return false;
 		}
 		
-		if (!(array_key_exists($goodsId, $this->itme))) {
+		if (!(array_key_exists($goodsId, $this->item))) {
 			return false;
 		} else {
-			return $this->itme[$goodsId]['num']; // return the quantity of the goods
+			return $this->item[$goodsId]['num']; // return the quantity of the goods
 		}
 	}
 	
 	// add a goods
 	public function addItem($id, $name, $price, $format, $img){
 		if ($this->isInItem($id)) {
-			$this->itme[$id]['num'] += 1;
+			$this->item[$id]['num'] += 1;
 			return;
 		}
 		
-		$this->itme[$id] = array();
-		$this->itme[$id]['num'] = 1;
-		$this->itme[$id]['name'] = $name;
-		$this->itme[$id]['price'] = $price;
-		$this->itme[$id]['format'] = $format;
-		$this->itme[$id]['img'] = $img;
+		$this->item[$id] = array();
+		$this->item[$id]['num'] = 1;
+		$this->item[$id]['name'] = $name;
+		$this->item[$id]['price'] = $price;
+		$this->item[$id]['format'] = $format;
+		$this->item[$id]['img'] = $img;
 	}
 	
 	public function reduceItem($id, $num){
@@ -67,25 +67,25 @@ class Cart {
 			return;
 		}
 		
-		if ($num >= $this->itme[$id]['num']) {
-			unset($this->itme[$id]);
+		if ($num >= $this->item[$id]['num']) {
+			unset($this->item[$id]);
 		} else {
-			$this->itme[$id]['num'] -= $num;
+			$this->item[$id]['num'] -= $num;
 		}
 	}
 	
 	public function delItem($id){
 		if ($this->isInItem($id)) {
-			unset($this->itme[$id]);
+			unset($this->item[$id]);
 		}
 	}
 	
 	public function getItem(){
-		return $this->itme;
+		return $this->item;
 	}
 	
 	public function getItemType(){
-		return count($this->itme);
+		return count($this->item);
 	}
 	
 	public function getOrderSum(){
@@ -94,7 +94,7 @@ class Cart {
 		}
 		
 		$sum = 0;
-		foreach ($this->itme as $key=>$value){
+		foreach ($this->item as $key=>$value){
 			$sum += $value['num'];
 		}
 		return $sum;
@@ -102,7 +102,7 @@ class Cart {
 	
 	public function getPrice($id){
 		if ($this->isInItem($id)) {
-			return $this->itme[$id]['price']*$this->itme[$id]['num'];
+			return $this->item[$id]['price']*$this->item[$id]['num'];
 		} else {
 			return 0;
 		}
@@ -114,14 +114,14 @@ class Cart {
 		}
 		
 		$sum=0;
-		foreach ($this->itme as $key=>$value){
+		foreach ($this->item as $key=>$value){
 			$sum += $value['price'] * $value['num'];
 		}
 		return $sum;
 	}
 	
 	public function emptyItem(){
-		$this->itme = array();
+		$this->item = array();
 	}
 }
 

@@ -198,7 +198,7 @@ class Product
 	{
 		foreach ($donnees as $key => $value)
 		{
-			// On rcupre le nom du setter correspondant ˆ l'attribut.
+			// On rÂcupÂre le nom du setter correspondant Âˆ l'attribut.
 			$method = 'set'.ucfirst($key);
 			 
 			// Si le setter correspondant existe.

@@ -2,21 +2,42 @@ $(document).ready(function(){
 	var goodsIDs = new Array();
 	
 	$('.addToCartButton').click(function(){
+		console.log("ids are " + goodsIDs);
 		var father = $(this).closest('.item');
+		var loadingBox = new ajaxLoader(father);
 		var itemID = father.children('.goodsID').val();
 		var itemName = father.find('.goodsName').html();
-		var itemPrice = parseFloat(father.find('.goodsPrice').html());
+		var itemPrice = father.find('.goodsPrice').html() * 1; 
+		var imgSrc = father.find('a img')[0].src;
+//		console.log('imgSrc='+imgSrc);
 		var itemFormat = father.find('.goodsFormat').html();
-		console.log("ids are " + goodsIDs);
+		
+		$.post("/protected/php/shopping.php?&jsAction=addGoods", 
+		{ id:itemID, name:itemName, price:itemPrice, format:itemFormat, img:imgSrc }, 
+		function(data){}).done(function() { 
 		if($.inArray(itemID, goodsIDs) > -1){
-			console.log("in array");
-			//var lastSum = 
+			var quantity = parseInt($('#item-'+itemID).children('.cartQuantity').html());
+			$('#item-'+itemID).children('.cartQuantity').html(quantity+1);
+			var total = $('#priceSum').html() * 1;
+			$('#priceSum').html((total+itemPrice).toFixed(2));
 		} else {
-			console.log("in append");
 			goodsIDs.push(itemID);
 		//	var html = '<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>';
-			$('#shoppingList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');
+			$('#shoppingList .ordersList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'&nbsp元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');
+			var total = $('#priceSum').html() * 1;
+			$('#priceSum').html((total+itemPrice).toFixed(2));
 		}
+		var sum = parseInt($('#shoppingSum').html()) + 1;
+		$('#shoppingSum').html(sum);
+		loadingBox.remove();
+    	$('html, body').css("cursor", "auto");
+
+		}).fail(function() { 
+			alert("Error");
+			$('html, body').css("cursor", "auto");
+		});
+		
+
 		console.log("out");
 	});
 
@@ -60,7 +81,7 @@ function addTest(el, goodsId, goodsName, goodsPrice, goodsFormat) {
 	// loading animation
 	var parent = el.parent().parent();
 	var loadingBox = new ajaxLoader(parent);
-	var imgSrc = parent.find('a img')[0].src;;
+	var imgSrc = parent.find('a img')[0].src;
 
 //	alert('id is '+goodsId+' and name is '+goodsName+' and price is '+goodsPrice+' and format is '+goodsFormat+' and img src is '+imgSrc);
 	$.post("/protected/php/shopping.php?&jsAction=addGoods", 

@@ -127,7 +127,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 				onmouseout="document.getElementById('shoppingList').style.display = 'none'";>
 			<span class="listItemStyleTop" style="border-top-color:#dd4b39;"></span>
 			<span class="listItemStyle">
-				购物车(<span id="shoppingSum"><?php 	$cart=new CookieCart(); echo $cart->getOrderSum();?></span>)
+				购物车(<span id="shoppingSum"><?php $cart=Cart::getCart(); echo $cart->getOrderSum();?></span>)
 			</span>
 		</a>
 
@@ -137,21 +137,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 <!-- shopping cart -->
 <div id="shoppingList" onmouseout="document.getElementById('shoppingList').style.display = 'none';"
 		onmouseover="document.getElementById('shoppingList').style.display = 'block';"> 
-		<div class="cartInfo">
-			<div class="cartDetail">
-				<div class="cartName">商品名称</div>
-				<div class="cartPrice">单价</div>
-				<span class="cartQuantity">数量</span>
-				<br>
-			</div>
-		</div>
-<?php echo getCartListHtml(); ?>
-<!--		<div id="cartTotal"><span style="margin-left:25%;">您还没有选择任何商品</span></div>
-
-		<div id="cartTotal"><span>总价:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="priceSum">0</span>&nbsp;元</span>
-		<a href="#" id="goShopping">进入购物车</a></div> -->
-
-<!--	<?php echo getCartListHtml();?>  -->
+	<?php echo getCartListHtml();?>
 </div>
 
 				</div> <!-- end of loginContainer -->

@@ -1,5 +1,7 @@
 <?php
-require_once 'cart.php';
+
+//require_once 'cart.php';
+require_once 'cookieCart.php';
 require_once 'functions.php';
 
 if(!session_id())
@@ -10,13 +12,19 @@ if(isset($_GET['jsAction'])){
 	$_GET['jsAction']();
 }
 
+//ob_end_flush();
+
 // add goods to shopping cart
 function addGoods(){
-	$cart=Cart::getCart();
-//	$cart->addItem($_GET['id'],$_GET['name'],$_GET['price'],$_GET['format']);
+/*	$cart=Cart::getCart();
 	$cart->addItem($_POST['id'],$_POST['name'],$_POST['price'],$_POST['format'],$_POST['img']);
 	$html = getCartListHtml();
-	echo json_encode(array("data"=>$cart->getOrderSum(), "html"=>$html));//getItem());
+	echo json_encode(array("data"=>$cart->getOrderSum(), "html"=>$html));//getItem());  */
+//	ob_start();
+	$cart=new CookieCart();
+	$cart->addItem($_POST['id'],$_POST['name'],$_POST['price'],$_POST['format'],$_POST['img']);
+//	ob_end_flush();
+	//echo json_encode(array("data"=>$cart->getOrderSum(), "html"=>$html));//getItem());
 }
 
 // remove goods from shopping cart
@@ -27,6 +35,7 @@ function delItem(){
 	echo json_encode(array("data"=>$cart->getOrderSum(), "html"=>$html));//getItem());
 }
 
+/* session
 function getCartListHtml(){
 	$cart=Cart::getCart();
 	$html = '';
@@ -51,7 +60,26 @@ function getCartListHtml(){
 		$html = '<div id="cartTotal"><span style="margin-left:25%;">您还没有选择任何商品</span></div>';
 	}
 	return $html;
-}
+} */
+
+function getCartListHtml(){
+	$cart=new CookieCart();
+	$html = '<div class="ordersList">';
+	if($cart->getItemType() > 0) {
+		foreach ($cart->getItem() as $key=>$value){
+			$html = $html . '<div class="cartInfo"><div class="cartDetail">';
+			$html = $html . '<input class="cartID" value='.$key.'>';
+			$html = $html . '<div class="cartName">' . $value['name']. '</div>';
+			$html = $html . '<div class="cartPrice">' . $value['price']. '元</div>';
+			$html = $html . '<span class="cartQuantity">' . $value['num'] . '</span>';
+			$html = $html . '<img src="/protected/images/remove.png" class="removeCart" title="删除"/>';
+			$html = $html . '<br></div></div>';
+		}
+	}
+	$html = $html . '</div><div id="cartTotal"><p>总价:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="priceSum">' . $cart->getSum() . '</span>&nbsp;元';
+	$html = $html . '<a href="#" id="goShopping">进入购物车</a></p></div>';
+	return $html;
+} 
 
 function getShoppingList() {
 	$db = dbConnect();
@@ -74,7 +102,7 @@ function getShoppingList() {
 		$html = $html . '<p><span>描述：'.$products[$i]->getDescription().'</span></p>';
 		$html = $html . '</article>';
 		$html = $html . '</a>';
-		$html = $html . '<p><button class="addToCartButton" onclick="addTest($(this),'.$products[$i]->getId().',\''.$products[$i]->getName().'\','.$products[$i]->getPrice().',\''.$products[$i]->getFormat().'\')">加入购物车</button></p>';
+		$html = $html . '<p><button class="addToCartButton">加入购物车</button></p>';// onclick="addTest($(this),'.$products[$i]->getId().',\''.$products[$i]->getName().'\','.$products[$i]->getPrice().',\''.$products[$i]->getFormat().'\')">加入购物车</button></p>';
 		$html = $html . '</div>';
 		$html = $html . '</div>';
 	}
@@ -102,13 +130,14 @@ function getShoppingList() {
 }
 
 function getCustomerShoppingList() {
-	$cart = Cart::getCart();
+	//$cart = Cart::getCart();
+	$cart=new CookieCart();
 	$html = '';
 	if ($cart->getItemType() == 0) {
 			$html = 'None';
 	} else {
-		foreach($cart->getItems() as $key=>$value) {
-			$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">从购物车中删除此件物品</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $value['img'] . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $value['format'] . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span>' . $value['price'] . ' 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input value=' . $value['num'] . ' type="number" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong>' . $value['price'] * $value['num'] . ' 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
+		foreach($cart->getItem() as $key=>$value) {
+			$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">从购物车中删除此件物品</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $value['img'] . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $value['format'] . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span>' . $value['price'] . ' 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input value=' . $value['num'] . ' type="number" min="1" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong>' . $value['price'] * $value['num'] . ' 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
 		}
 	}
 	echo $html;
@@ -131,7 +160,6 @@ function checkCookie(){
                         echo "您浏览器的 cookie 功能OK。";;
                 }
 }        
-
 ?>
 		
 		
