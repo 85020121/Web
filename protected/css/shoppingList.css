@@ -168,7 +168,7 @@ top: 12px;
 right: 0;
 bottom: 0;
 left: 0;
-z-index: -1000;
+z-index: -1;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
@@ -179,7 +179,7 @@ background: -moz-linear-gradient(rgba(222,243,255,0.9), rgba(189,232,255,0.9));
 background: -webkit-linear-gradient(rgba(222,243,255,0.9), rgba(189,232,255,0.9));
 background: -o-linear-gradient(rgba(222,243,255,0.9), rgba(189,232,255,0.9));
 background: -ms-linear-gradient(rgba(222,243,255,0.9), rgba(189,232,255,0.9));
-background: linear-gradient(rgba(222,243,255,0.9), rgba(189,232,255,0.9));
+background: linear-gradient(rgba(222,243,255,0.9), rgba(189,232,255,0.9)); */
 opacity: 0;
 font-weight: bold;
 overflow: hidden;

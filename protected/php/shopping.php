@@ -71,14 +71,14 @@ function getCartListHtml(){
 			$html = $html . '<div id="item-'. $key .'" class="cartDetail">';
 			$html = $html . '<input class="cartID" value='.$key.'>';
 			$html = $html . '<div class="cartName">' . $value['name']. '</div>';
-			$html = $html . '<div class="cartPrice">' . $value['price']. '元</div>';
+			$html = $html . '<div class="cartPrice"><span class="getPrice">' . $value['price']. '</span>&nbsp元</div>';
 			$html = $html . '<span class="cartQuantity">' . $value['num'] . '</span>';
 			$html = $html . '<img src="/protected/images/remove.png" class="removeCart" title="删除"/>';
 			$html = $html . '<br></div></div>';
 		}
 	}
 	$html = $html . '</div><div id="cartTotal"><p>总价:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="priceSum">' . $cart->getSum() . '</span>&nbsp;元';
-	$html = $html . '<a href="#" id="goShopping">进入购物车</a></p></div>';
+	$html = $html . '<a href="/index.php?p=shopping" id="goShopping">进入购物车</a></p></div>';
 	return $html;
 } 
 
@@ -157,7 +157,12 @@ function getOrdersQuantity() {
 
 function updateQuantity() {
 	$cart=new CookieCart();
-	echo $cart->updateQuantity($_POST['id'], $_POST['quantity']);
+	$cart->updateQuantity($_POST['id'], $_POST['quantity']);
+}
+
+function removeOrder() {
+	$cart=new CookieCart();
+	$cart->delItem($_POST['id']);
 }
 
 function checkCookie(){

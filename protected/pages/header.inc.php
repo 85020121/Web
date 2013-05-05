@@ -121,7 +121,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 <?php } ?>
 		
 	<li class="listItem">
-		<a href="/index.php?p=cartTest" id="showList"
+		<a href="/index.php?p=shopping" id="showList"
 				onmouseover="document.getElementById('shoppingList').style.display = 'block';
 				document.getElementById('loginBox').style.display = 'none';"
 				onmouseout="document.getElementById('shoppingList').style.display = 'none'";>
@@ -140,7 +140,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 		<div class="cartInfo">
 			<div class="cartDetail">
 				<div class="cartName">商品名称</div>
-				<div class="cartPrice">单价</div>
+				<div class="cartPrice" style="text-align:center">单价</div>
 				<span class="cartQuantity">数量</span>
 				<br>
 			</div>

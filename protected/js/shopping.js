@@ -25,15 +25,13 @@ $(document).ready(function(){
 			if($.inArray(itemID, goodsIDs) > -1){
 				var quantity = parseInt($('#item-'+itemID).children('.cartQuantity').html());
 				$('#item-'+itemID).children('.cartQuantity').html(quantity+1);
-				var total = $('#priceSum').html() * 1;
-				$('#priceSum').html((total+itemPrice).toFixed(2));
 			} else {
 				goodsIDs.push(itemID);
 				//	var html = '<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>';
-				$('#shoppingList .ordersList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice">'+ itemPrice +'&nbsp元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');
-				var total = $('#priceSum').html() * 1;
-				$('#priceSum').html((total+itemPrice).toFixed(2));
+				$('#shoppingList .ordersList').append('<div class="cartInfo"><div id="item-'+ itemID +'" class="cartDetail"><input class="cartID" value='+ itemID +'><div class="cartName">'+ itemName +'</div><div class="cartPrice"><span class="getPrice">'+ itemPrice.toFixed(2) +'</span>&nbsp元</div><span class="cartQuantity">1</span><img src="/protected/images/remove.png" class="removeCart" title="删除"/><br></div></div>');				
 			}
+			var total = $('#priceSum').html() * 1;
+			$('#priceSum').html((total+itemPrice).toFixed(2));
 			var sum = parseInt($('#shoppingSum').html()) + 1;
 			$('#shoppingSum').html(sum);
 			loadingBox.remove();
@@ -62,16 +60,20 @@ $(document).ready(function(){
 	
 	// remove goods from shopping cart by goods id
 	$('.removeCart').livequery('click', function() {
-		var goodsId = $(this).parent().children(".cartID").val();
+		var father = $(this).closest('.cartInfo');
+		var goodsId = father.find(".cartID").val();
 		$('html, body').css("cursor", "wait");
-		$.post("/protected/php/shopping.php?&jsAction=delItem", {id:goodsId}, function(data)
+		$.post("/protected/php/shopping.php?&jsAction=removeOrder", {id:goodsId}, function(data)
     	{
-			//console.log("before is "+data);
-			data = eval("(" + data + ")");
-			$('#shoppingSum').html(data.data);
-			$('#shoppingList').html(data.html);
+			// to do 
     	}).done(function() { 
-				// to add
+				var orderPrice = father.find('.getPrice').html() * 1;
+				var orderQuantity = parseInt(father.find('.cartQuantity').html());
+				father.slideUp("normal", function() { $(this).remove(); } );
+				var total = $('#priceSum').html() * 1;
+				$('#priceSum').html((total - (orderPrice*orderQuantity).toFixed(2)).toFixed(2));
+				var sum = parseInt($('#shoppingSum').html()) - orderQuantity;
+				$('#shoppingSum').html(sum);
 				$('html, body').css("cursor", "auto");
     	}).fail(function() { 
     			alert("Error when delete item.");

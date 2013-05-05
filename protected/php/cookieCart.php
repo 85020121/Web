@@ -4,7 +4,7 @@ class CookieCart {
 
 	static $cookieName = 'shopping';
 	static $saveTime;
-	static $cookieLifeCircle = 1000;
+	static $cookieLifeCircle = 100;
 	
 	protected $item = array(); // orders stocker
 	
