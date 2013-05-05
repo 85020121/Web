@@ -137,7 +137,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 <!-- shopping cart -->
 <div id="shoppingList" onmouseout="document.getElementById('shoppingList').style.display = 'none';"
 		onmouseover="document.getElementById('shoppingList').style.display = 'block';"> 
-		<div class="cartInfo">
+		<div>
 			<div class="cartDetail">
 				<div class="cartName">商品名称</div>
 				<div class="cartPrice" style="text-align:center">单价</div>

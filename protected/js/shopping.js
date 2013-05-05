@@ -55,8 +55,7 @@ $(document).ready(function(){
         },
         function () {
             $(this).find('article').animate({opacity:'0'});
-        }
- 	);
+        });
 	
 	// remove goods from shopping cart by goods id
 	$('.removeCart').livequery('click', function() {
@@ -70,6 +69,7 @@ $(document).ready(function(){
 				var orderPrice = father.find('.getPrice').html() * 1;
 				var orderQuantity = parseInt(father.find('.cartQuantity').html());
 				father.slideUp("normal", function() { $(this).remove(); } );
+				goodsIDs.splice( goodsIDs.indexOf($(this).goodsId), 1 );
 				var total = $('#priceSum').html() * 1;
 				$('#priceSum').html((total - (orderPrice*orderQuantity).toFixed(2)).toFixed(2));
 				var sum = parseInt($('#shoppingSum').html()) - orderQuantity;
