@@ -39,8 +39,9 @@ a:hover{
 	display: inline;
 	padding-bottom: 80px; 
 	position: absolute;
-	background: #f1f1f1;
-/*	background: #1e8cbe; 
+	background: url(/protected/images/background.jpg) 0 0 repeat;
+/*	background: #f1f1f1;
+	background: #1e8cbe; 
 	background: #f0f0f0 url(/protected/images/bg.gif) repeat -70% 0;
 	background: url("/protected/images/sky.jpg") no-repeat fixed; /*no-repeat 0 40px fixed;
 	top: 40px; */

@@ -120,7 +120,7 @@ if (isset($_SESSION['id']) AND isset($_SESSION['login']))
 	</li>
 <?php } ?>
 		
-	<li class="listItem">
+	<li class="listItem" id="cartListShowHide">
 		<a href="/index.php?p=shopping" id="showList"
 				onmouseover="document.getElementById('shoppingList').style.display = 'block';
 				document.getElementById('loginBox').style.display = 'none';"

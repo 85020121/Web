@@ -1,17 +1,37 @@
 <script type="text/javascript">
 $(function(){
+	// hide cart list
+	$('#cartListShowHide').hide();
+
 	// remove product from the shopping list
     $('.product-remove').click(function() {
     	var li = $(this).closest('li');
-    	//li.find('.item-overlay').css('z-index','2');
-    	li.find('.item-overlay').css('z-index','2').animate({opacity:['1', 'swing']},3000, 'linear', function()
-		{
-			// to add
-			
-			$(this).closest('li').slideUp("normal", function() { $(this).remove(); } );
-		});
-  
-		return false;
+    	var productInfo = li.find('.price-quantity');
+    	var goodsId = parseInt(productInfo.children('.orderID').html());
+
+    	$.post("/protected/php/shopping.php?&jsAction=removeOrder", {id:goodsId}, function(data)
+    	{
+			// to do
+    	}).done(function() {     		
+  			var price = productInfo.find('li .orderPrice').html() * 1;
+  			var quantity = parseInt(productInfo.find('li .quantityInput').val());
+  			var total = ($('#ordersSum').html() * 1 - (price*quantity).toFixed(2)).toFixed(2);
+
+  			li.find('.item-overlay').css('z-index','2').animate({opacity:['1', 'swing']},3000, 'linear', function()
+			{
+				// to add			
+				$(this).closest('li').slideUp("normal", function() { $(this).remove(); } );
+	  			$('#ordersSum').html(total);
+				
+				// update cart list
+	  		/*	$('#priceSum').html(total);
+				$('#shoppingSum').html(parseInt($('#shoppingSum').html()) - quantity);
+				$('#shoppingList').find('#item-'+goodsId).parent().remove(); */
+			});
+			return false;
+    	}).fail(function(){
+    	
+    	});
     });
     
     var lastQuantity;
@@ -44,12 +64,23 @@ $(function(){
     		
 			lastOrdersSum = $('#ordersSum').html() * 1;
 			lastOrderTotal = orderTotal.html() * 1;
-			
+			var total = (lastOrdersSum - lastOrderTotal + price*newQuantity).toFixed(2);
+			var goodsId = parseInt(father.children('.orderID').html());
 			$.post("/protected/php/shopping.php?&jsAction=updateQuantity", 
-				{id:parseInt(father.children('.orderID').html()), quantity:newQuantity}, 
+				{id:goodsId, quantity:newQuantity}, 
 				function(data){}).done(function() { 
+		    		// update customer shopping list
 		    		orderTotal.html((price*newQuantity).toFixed(2));
-    				$('#ordersSum').html((lastOrdersSum - lastOrderTotal + price*newQuantity).toFixed(2));
+    				$('#ordersSum').html(total);
+    				
+    				
+    			/*	// update cart list
+    				var lastShoppingSum = parseInt($('#shoppingSum').html());
+    				var lastGoodsQuantity = $('#shoppingList').find('#item-'+goodsId).find('.cartQuantity');
+    				$('#shoppingSum').html(lastShoppingSum - parseInt(lastGoodsQuantity.html()) + newQuantity);
+	  				$('#priceSum').html(total);
+					$('#shoppingList').find('#item-'+goodsId).find('.cartQuantity').html(newQuantity);
+				*/
 				}).fail(function(){
 					alert("修改失败，请稍后再试。");
 				});
