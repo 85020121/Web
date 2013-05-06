@@ -8,7 +8,7 @@ $(document).ready(function(){
 	});
 	
 	$('.addToCartButton').click(function(){
-		//console.log("ids are " + goodsIDs);
+	//	console.log("ids are " + goodsIDs);
 		var father = $(this).closest('.item');
 		var loadingBox = new ajaxLoader(father);
 		var itemID = father.children('.goodsID').val();
@@ -60,16 +60,19 @@ $(document).ready(function(){
 	// remove goods from shopping cart by goods id
 	$('.removeCart').livequery('click', function() {
 		var father = $(this).closest('.cartInfo');
-		var goodsId = father.find(".cartID").val();
+		var goodsIdToRemove = father.find(".cartID").val();
 		$('html, body').css("cursor", "wait");
-		$.post("/protected/php/shopping.php?&jsAction=removeOrder", {id:goodsId}, function(data)
+		$.post("/protected/php/shopping.php?&jsAction=removeOrder", {id:goodsIdToRemove}, function(data)
     	{
 			// to do 
     	}).done(function() { 
 				var orderPrice = father.find('.getPrice').html() * 1;
 				var orderQuantity = parseInt(father.find('.cartQuantity').html());
 				father.slideUp("normal", function() { $(this).remove(); } );
-				goodsIDs.splice( goodsIDs.indexOf($(this).goodsId), 1 );
+				
+				// remove goodsId from array
+				goodsIDs.splice( goodsIDs.indexOf(goodsIdToRemove), 1 );
+				
 				var total = $('#priceSum').html() * 1;
 				$('#priceSum').html((total - (orderPrice*orderQuantity).toFixed(2)).toFixed(2));
 				var sum = parseInt($('#shoppingSum').html()) - orderQuantity;

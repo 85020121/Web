@@ -2,16 +2,23 @@
 
 class CookieCart {
 
-	static $cookieName = 'shopping';
+	static $cookieName = 'CSC';
 	static $saveTime;
 	static $cookieLifeCircle = 1000;
+	
+	private $key;
+	private $iv_size;
+	private $iv;
 	
 	protected $item = array(); // orders stocker
 	
 	
 	function __construct(){
+		$this->key = pack('H*', "636f6f6b69654b657949734f6e655069656365");
+		$this->iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
+		$this->iv = mcrypt_create_iv($this->iv_size, MCRYPT_RAND);
 		if(isset($_COOKIE[self::$cookieName])) {
-			$this->item = unserialize($_COOKIE[self::$cookieName]);
+			$this->item = $this->decryptCookie($_COOKIE[self::$cookieName]);
 		}
     	self::$saveTime=time()+self::$cookieLifeCircle;
 		$this->updateCookie();
@@ -21,7 +28,7 @@ class CookieCart {
 	
 	private function updateCookie() {
 		//ob_start();
-		setcookie(self::$cookieName,serialize($this->item),self::$saveTime, '/');		
+		setcookie(self::$cookieName, $this->cryptCookie($this->item), self::$saveTime, '/');		
 		//ob_end_flush();
 	}
 
@@ -130,27 +137,38 @@ class CookieCart {
 	public function emptyItem(){
 		$this->item = array();
 	}
+	
+	// --- ENCRYPTION ---
+    
+    private function cryptCookie($cookie) {
+    	$cookie_utf8 = serialize($cookie);
+    	$ciphertext = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $this->key,
+                                 $cookie_utf8, MCRYPT_MODE_CBC, $this->iv);
+		$ciphertext = $this->iv . $ciphertext;
+    	# encode the resulting cipher text so it can be represented by a string
+    	$ciphertext_base64 = base64_encode($ciphertext);
+    	return $ciphertext_base64;
+    }
+
+	private function decryptCookie($cookie) {
+	    $ciphertext_dec = base64_decode($cookie);
+	 	$iv_dec = substr($ciphertext_dec, 0, $this->iv_size);    
+   		# retrieves the cipher text (everything except the $iv_size in the front)
+  		$ciphertext_dec = substr($ciphertext_dec, $this->iv_size);
+	    # may remove 00h valued characters from end of plain text
+    	$plaintext_utf8_dec = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key,
+                                         $ciphertext_dec, MCRYPT_MODE_CBC, $iv_dec);
+        $plaintext_utf8_dec = preg_replace('!s:(\d+):"(.*?)";!e', "'s:'.strlen('$2').':\"$2\";'", $plaintext_utf8_dec);
+        return unserialize($plaintext_utf8_dec);
+	}
 }
 
-/*
+
 ob_start();
 $cart = new CookieCart();
-$cart->addItem(1, 'test', 10.5, '500g', 'aaaaaaa');
-$cart->addItem(1, 'test', 10.5, '500g', 'aaaaaaa');
+//$cart->addItem(12, '苹果', 10.5, '500g', 'aaaaaasadasdw/imag/22a/pjj.png');
+//$cart->addItem(3, '橙子', 10.5, '500g', 'aaaaaaa');
 echo "<hr color='red'>";
-echo "ADD  ";
-print_r($cart);
-$cart->reduceItem(1);
-echo "<hr color='red'>";
-echo "REDUCE  ";
-print_r($cart);
+var_dump($cart->getItem());
 
-echo "<hr color='red'>";
-if(isset($_COOKIE[$cart::$cookieName]))
-	print_r(unserialize($_COOKIE[$cart::$cookieName]));
-//ob_end_flush();
-
-$cart = new CookieCart();
-$cart->addItem(5, 'test', 10.5, '500g', 'aaaaaaa');
-*/
 ?>
