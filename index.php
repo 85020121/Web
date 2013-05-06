@@ -156,10 +156,6 @@ if(!(include 'protected/php/includes.php'))
 
 ?>
 
-<?php
-$db = dbConnect();
-$productsManager = new ProductsManager($db);
-?>
 	
 	<div id="body">
 		<div class="wrap">

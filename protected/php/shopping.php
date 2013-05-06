@@ -22,7 +22,7 @@ function addGoods(){
 	echo json_encode(array("data"=>$cart->getOrderSum(), "html"=>$html));//getItem());  */
 //	ob_start();
 	$cart=new CookieCart();
-	$cart->addItem($_POST['id'],$_POST['name'],$_POST['price'],$_POST['format'],$_POST['img']);
+	$cart->addItem($_POST['id'],$_POST['name'],$_POST['price']);
 //	ob_end_flush();
 	//echo json_encode(array("data"=>$cart->getOrderSum(), "html"=>$html));//getItem());
 }
@@ -133,12 +133,19 @@ function getShoppingList() {
 function getCustomerShoppingList() {
 	//$cart = Cart::getCart();
 	$cart=new CookieCart();
+	$db = dbConnect();
+	$productsManager = new ProductsManager($db);
 	$html = '';
 	if ($cart->getItemType() == 0) {
 			$html = 'None';
 	} else {
+//		foreach($cart->getItem() as $key=>$value) {
+//			$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">正在从购物车中删除此件物品...</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $value['img'] . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="orderID" style="display:none">' . $key . '</li><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $value['format'] . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span><span class="orderPrice">' . $value['price'] . '</span> 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input class="quantityInput" value=' . $value['num'] . ' min="1" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong><span class="orderTotal">'. number_format((float)($value['price'] * $value['num']), 2, '.', '') . '</span> 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
+//		}
 		foreach($cart->getItem() as $key=>$value) {
-			$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">正在从购物车中删除此件物品...</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $value['img'] . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="orderID" style="display:none">' . $key . '</li><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $value['format'] . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span><span class="orderPrice">' . $value['price'] . '</span> 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input class="quantityInput" value=' . $value['num'] . ' min="1" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong><span class="orderTotal">'. number_format((float)($value['price'] * $value['num']), 2, '.', '') . '</span> 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
+			$product = $productsManager->getProductById($key);
+			if($product != false)
+				$html = $html . '<li class="cart-product clearfix top-divided"><div class="product-container"><div class="item-overlay"><p class="h2"><span class="removed">正在从购物车中删除此件物品...</span></p></div><div class="media-block"><div data-relatedlink="/" class="media product-image mtm relatedlink"><img src="' . $product->getPic_url() . '" alt></div><div class="content product-info pvm"><div class="media-block alt clearfix"><ul class="media h-list alt price-quantity"><li class="orderID" style="display:none">' . $key . '</li><li class="item first product-format"><span class="a11y">规格&nbsp;:</span>' . $product->getFormat() . '</li><li class="item first product-price"><span class="a11y">单价&nbsp;:</span><span class="orderPrice">' . $value['price'] . '</span> 元</li><li class="item phl quantity-select"><label class="a11y">数量</label><input class="quantityInput" value=' . $value['num'] . ' min="1" length="3"  maxlength="4" class></li><li class="item quantity-price h4"><span class="a11y">总价&nbsp;:</span><strong><span class="orderTotal">'. number_format((float)($value['price'] * $value['num']), 2, '.', '') . '</span> 元</strong></li></ul><div class="product-title"><h2 clss="content h3 strong"><a href="?id=' . $key . '" class="alt">' . $value['name'] . '</a> </h2></div></div><div class="shopping-product-admin section top-divided mbm"><p class="product-admin h-group"><a href="#" class="product-remove item">删除</a><a href="#" class="product-remove item pipe">收藏</a></p></div></div></div></div></li>';
 		}
 	}
 	echo $html;

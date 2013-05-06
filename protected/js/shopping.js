@@ -14,12 +14,9 @@ $(document).ready(function(){
 		var itemID = father.children('.goodsID').val();
 		var itemName = father.find('.goodsName').html();
 		var itemPrice = father.find('.goodsPrice').html() * 1; 
-		var imgSrc = father.find('a img')[0].src;
-//		console.log('imgSrc='+imgSrc);
-		var itemFormat = father.find('.goodsFormat').html();
 		
 		$.post("/protected/php/shopping.php?&jsAction=addGoods", 
-		{ id:itemID, name:itemName, price:itemPrice, format:itemFormat, img:imgSrc }, 
+		{ id:itemID, name:itemName, price:itemPrice}, 
 		function(data){}).done(function() { 
 			//console.log($.inArray(itemID, goodsIDs));
 			if($.inArray(itemID, goodsIDs) > -1){

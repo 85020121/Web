@@ -26,6 +26,30 @@ class ProductsManager
 		}
 		return $products;
 	}
+	
+	public function getProductsByIds($ids)
+	{
+		$products = array();
+		foreach ($ids as $id) {
+			$product = getProductById($id);
+			if($product != false) {
+				$products[] = $product;
+			}
+		}
+		return $products;
+	}
+	
+	public function getProductById($id)
+	{
+		$q = $this->db->prepare('SELECT * FROM products_info WHERE id=?');
+		$q->execute(array($id));
+		$data = $q->fetch(PDO::FETCH_ASSOC);
+		if($data){
+			return new Product($data);
+		} else {
+			return false;
+		}
+	}
 		
 	
 }

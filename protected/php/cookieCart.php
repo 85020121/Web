@@ -50,7 +50,7 @@ class CookieCart {
 	}
 	
 	// add a goods
-	public function addItem($id, $name, $price, $format, $img){
+	public function addItem($id, $name, $price){
 		if ($this->isInItem($id)) {
 			$this->item[$id]['num'] += 1;
 		} else {
@@ -58,8 +58,6 @@ class CookieCart {
 			$this->item[$id]['num'] = 1;
 			$this->item[$id]['name'] = $name;
 			$this->item[$id]['price'] = number_format((float)$price, 2, '.', '');
-			$this->item[$id]['format'] = $format;
-			$this->item[$id]['img'] = $img;
 		}
 		$this->updateCookie();
 	}
@@ -163,12 +161,12 @@ class CookieCart {
 	}
 }
 
-
+/*
 ob_start();
 $cart = new CookieCart();
 //$cart->addItem(12, '苹果', 10.5, '500g', 'aaaaaasadasdw/imag/22a/pjj.png');
 //$cart->addItem(3, '橙子', 10.5, '500g', 'aaaaaaa');
 echo "<hr color='red'>";
 var_dump($cart->getItem());
-
+*/
 ?>
